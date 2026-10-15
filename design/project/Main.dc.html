@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Homepage</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<dc-import name="Header" active="start" hint-size="100%,150px"></dc-import>
+
+<!-- Hero -->
+<section class="wrap" style="padding-top:56px;padding-bottom:48px">
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+<div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:22px">
+<span class="eyebrow">A Danish cigar shop for first-timers</span>
+<h1>Your first cigar, chosen for you.</h1>
+<hr class="rule-l">
+<p style="font-size:21px;max-width:520px;color:#3d2a20">Simple guidance, honest descriptions and fresh delivery.</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:6px">
+<a class="btn btn-primary" href="Guide.dc.html" data-funnel="engagement:start-here">Start Here – New to cigars?</a>
+<a class="btn btn-ghost" href="Finder.dc.html" data-funnel="awareness:browse-all">Browse all cigars</a>
+</div>
+<p style="font-size:15px;color:#5a4435">No jargon, no pressure. If a word is new, we explain it.</p>
+</div>
+<div class="img-ph" role="img" aria-label="Photo slot: a cigar resting on a crystal ashtray in soft window light" style="flex:1 1 380px;min-height:460px;border-radius:220px 220px 18px 18px;border:2px solid #C8963E;outline:1px solid #C8963E;outline-offset:6px">
+<div class="cap">Photo slot – a cigar resting on a crystal ashtray in soft window light, warm afternoon tones</div>
+</div>
+</div>
+</section>
+
+<!-- Discovery -->
+<section class="wrap" style="padding-bottom:64px">
+<div style="text-align:center;margin-bottom:32px"><h2>Where do you want to start?</h2></div>
+<div class="g-3">
+<a href="Guide.dc.html" class="card" style="text-decoration:none;color:#2A1A12;padding:28px;display:flex;flex-direction:column;gap:12px" data-funnel="engagement:new-to-cigars">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8A5A3B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C5 4 8.5 4 12 6c3.5-2 7-2 10-.5V19c-3-1.500-6.500-1.500-10 .5-3.500-2-7-2-10-.5z"></path><path d="M12 6v13.500"></path></svg>
+<h3>I’m new to cigars</h3>
+<p>A three-minute guide to strength, flavour and the words people use, plus a short quiz.</p>
+<span style="font-weight:700;color:#8A5A3B">Read the Beginner Guide →</span>
+</a>
+<a href="Finder.dc.html" class="card" style="text-decoration:none;color:#2A1A12;padding:28px;display:flex;flex-direction:column;gap:12px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8A5A3B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"></rect><path d="M12 8v13M3 13h18M12 8c-2.500 0-4-1-4-2.500S9.500 3 12 8c2.500-5 4-3.500 4-2"></path></svg>
+<h3>Shop by occasion</h3>
+<p>Celebrating, gifting or just unwinding? We’ll show cigars that suit the moment.</p>
+<span style="font-weight:700;color:#8A5A3B">Open the Finder →</span>
+</a>
+<a href="Finder.dc.html" class="card" style="text-decoration:none;color:#2A1A12;padding:28px;display:flex;flex-direction:column;gap:12px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8A5A3B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="11" rx="2"></rect><path d="M3 13h18M8 9V6h8v3"></path></svg>
+<h3>Starter &amp; sampler packs</h3>
+<p>Three or four hand-picked cigars in one box, so you can find what you like.</p>
+<span style="font-weight:700;color:#8A5A3B">See the packs →</span>
+</a>
+</div>
+</section>
+
+<!-- Occasions -->
+<section class="wrap" style="padding-bottom:64px">
+<div style="display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center">
+<span class="eyebrow">Shop by occasion</span>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+<sc-for list="{{occasions}}" as="o" hint-placeholder-count="5">
+<a class="chip" href="Finder.dc.html">{{o.label}}</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<hr class="rule">
+
+<!-- Beginner picks -->
+<section class="wrap sec">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px">
+<div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Our beginner picks</span><h2>Smooth, gentle and easy to enjoy</h2></div>
+<a class="btn btn-ghost btn-sm" href="Finder.dc.html">See all beginner picks</a>
+</div>
+<div class="g-4">
+<dc-import name="ProductCard" pid="1" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="5" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="9" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="2" hint-size="100%,520px"></dc-import>
+</div>
+</section>
+
+<!-- How it works -->
+<section class="dark-sec on-dark">
+<div class="wrap sec">
+<div style="text-align:center;margin-bottom:40px;display:flex;flex-direction:column;gap:10px"><span class="eyebrow">How it works</span><h2>From “where do I start?” to your door</h2></div>
+<div class="g-3">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px;padding:8px 8px 8px 0">
+<span style="font-family:Fraunces,Georgia,serif;font-size:56px;color:#C8963E;line-height:1">{{s.n}}</span>
+<h3>{{s.title}}</h3>
+<p style="color:#E8DCC6">{{s.body}}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- Trust -->
+<section class="wrap sec">
+<div style="text-align:center;margin-bottom:28px;display:flex;flex-direction:column;gap:12px;align-items:center">
+<span class="eyebrow">Why people trust First Draw</span>
+<h2>Fresh, guaranteed and age-checked</h2>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center"><span style="font-family:Fraunces,Georgia,serif;font-size:34px">4.8</span><span class="star" style="font-size:22px;letter-spacing:2px" aria-hidden="true">★★★★★</span><span style="color:#5a4435">average from customers (demo data)</span></div>
+</div>
+<dc-import name="Trust" hint-size="100%,150px"></dc-import>
+<div class="g-3" style="margin-top:36px">
+<sc-for list="{{quotes}}" as="q" hint-placeholder-count="3">
+<figure class="card" style="margin:0;padding:24px;display:flex;flex-direction:column;gap:14px">
+<span class="star" aria-label="5 out of 5 stars" role="img" style="letter-spacing:2px">★★★★★</span>
+<blockquote style="margin:0;font-size:18px">{{q.text}}</blockquote>
+<figcaption style="font-weight:700;color:#8A5A3B">{{q.who}}</figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<!-- Guide teaser -->
+<section class="wrap" style="padding-bottom:80px">
+<div class="card" style="padding:0;overflow:hidden;display:flex;flex-wrap:wrap;border-color:#C8963E">
+<div class="img-ph" role="img" aria-label="Photo slot: hands holding an unlit cigar beside a cutter" style="flex:1 1 320px;min-height:280px">
+<div class="cap">Photo slot – hands holding an unlit cigar beside a cutter, shallow focus</div>
+</div>
+<div style="flex:1 1 380px;padding:40px;display:flex;flex-direction:column;gap:16px;justify-content:center">
+<span class="eyebrow">From the guide</span>
+<h2>How to choose your first cigar in 3 minutes</h2>
+<p>Strength, flavour, size and the three words you need to know. Then a three-question quiz that ends with a short list made for you.</p>
+<div><a class="btn btn-primary" href="Guide.dc.html" data-funnel="awareness:guide-to-shop">Read the guide</a></div>
+</div>
+</div>
+</section>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      occasions: [{label:'Celebration'},{label:'Gift'},{label:'Relaxing evening'},{label:'Outdoors / with friends'},{label:'First-time try'}],
+      steps: [
+        {n:'1', title:'Choose with our guide', body:'Answer three simple questions or browse beginner picks. Every cigar term is explained in plain language.'},
+        {n:'2', title:'We verify your age', body:'A quick MitID check at checkout keeps things safe and legal. Adults 18+ only.'},
+        {n:'3', title:'Fresh to your door', body:'Stored in a humidor, shipped fresh in 1–3 working days, with a care guide so you know what to do next.'}
+      ],
+      quotes: [
+        {text:'I had no idea where to begin for my dad’s 60th. The guide picked a cigar in five minutes and he loved it.', who:'Mikkel, Aarhus'},
+        {text:'Everything was explained without making me feel silly. It arrived perfectly fresh.', who:'Sofie, Copenhagen'},
+        {text:'The starter trio let me find out what I like. Honest descriptions, and they were right.', who:'Jonas, Odense'}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

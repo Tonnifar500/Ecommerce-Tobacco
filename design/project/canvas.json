@@ -1,0 +1,239 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "About-m.dc.html": {
+      "expand": "fill",
+      "h": 5400,
+      "title": "Mobile · About",
+      "w": 375,
+      "x": 3185,
+      "y": 9220
+    },
+    "About.dc.html": {
+      "expand": "fill",
+      "h": 2900,
+      "title": "8 · About us",
+      "w": 1280,
+      "x": 4080,
+      "y": 5000
+    },
+    "Cart-m.dc.html": {
+      "expand": "fill",
+      "h": 4200,
+      "title": "Mobile · Cart & Checkout",
+      "w": 375,
+      "x": 1820,
+      "y": 9220
+    },
+    "Cart.dc.html": {
+      "expand": "fill",
+      "h": 2300,
+      "is_interactive": true,
+      "title": "5 · Cart & Checkout (demo)",
+      "w": 1280,
+      "x": 0,
+      "y": 5000
+    },
+    "Confirmation-m.dc.html": {
+      "expand": "fill",
+      "h": 5200,
+      "title": "Mobile · Confirmation",
+      "w": 375,
+      "x": 2275,
+      "y": 9220
+    },
+    "Confirmation.dc.html": {
+      "expand": "fill",
+      "h": 2900,
+      "title": "6 · Order confirmation & care guide",
+      "w": 1280,
+      "x": 1360,
+      "y": 5000
+    },
+    "Finder-m.dc.html": {
+      "expand": "fill",
+      "h": 6200,
+      "title": "Mobile · Finder",
+      "w": 375,
+      "x": 910,
+      "y": 9220
+    },
+    "Finder.dc.html": {
+      "expand": "fill",
+      "h": 3300,
+      "is_interactive": true,
+      "title": "3 · Cigar Finder",
+      "w": 1280,
+      "x": 2720,
+      "y": 0
+    },
+    "Footer.dc.html": {
+      "expand": "fill",
+      "h": 520,
+      "title": "Component · Footer",
+      "w": 1280,
+      "x": 1360,
+      "y": 8300
+    },
+    "Guide-m.dc.html": {
+      "expand": "fill",
+      "h": 8000,
+      "title": "Mobile · Beginner Guide",
+      "w": 375,
+      "x": 455,
+      "y": 9220
+    },
+    "Guide.dc.html": {
+      "expand": "fill",
+      "h": 4600,
+      "is_interactive": true,
+      "title": "2 · Beginner Guide + quiz",
+      "w": 1280,
+      "x": 1360,
+      "y": 0
+    },
+    "Header.dc.html": {
+      "expand": "fill",
+      "h": 150,
+      "is_interactive": true,
+      "title": "Component · Top bar + header",
+      "w": 1280,
+      "x": 0,
+      "y": 8300
+    },
+    "Help-m.dc.html": {
+      "expand": "fill",
+      "h": 3600,
+      "title": "Mobile · Help",
+      "w": 375,
+      "x": 2730,
+      "y": 9220
+    },
+    "Help.dc.html": {
+      "expand": "fill",
+      "h": 2200,
+      "is_interactive": true,
+      "title": "7 · FAQ / Help",
+      "w": 1280,
+      "x": 2720,
+      "y": 5000
+    },
+    "Home-m.dc.html": {
+      "expand": "fill",
+      "h": 6400,
+      "title": "Mobile · Homepage",
+      "w": 375,
+      "x": 0,
+      "y": 9220
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 3500,
+      "is_interactive": true,
+      "title": "1 · Homepage",
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "Product-m.dc.html": {
+      "expand": "fill",
+      "h": 6800,
+      "title": "Mobile · Product",
+      "w": 375,
+      "x": 1365,
+      "y": 9220
+    },
+    "Product.dc.html": {
+      "expand": "fill",
+      "h": 3900,
+      "is_interactive": true,
+      "title": "4 · Product page",
+      "w": 1280,
+      "x": 4080,
+      "y": 0
+    },
+    "ProductCard.dc.html": {
+      "h": 540,
+      "is_interactive": true,
+      "title": "Component · Product card",
+      "w": 320,
+      "x": 4080,
+      "y": 8300
+    },
+    "Trust.dc.html": {
+      "expand": "fill",
+      "h": 160,
+      "title": "Component · Trust bar",
+      "w": 1280,
+      "x": 2720,
+      "y": 8300
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-14T12:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "t1": {
+      "kind": "title1",
+      "maxW": 5360,
+      "text": "First Draw · Desktop (1280) – Home, Guide, Finder, Product",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "t2": {
+      "kind": "title1",
+      "maxW": 5360,
+      "text": "Desktop – Checkout, Confirmation, Help, About",
+      "w": 240,
+      "x": 0,
+      "y": 4700
+    },
+    "t3": {
+      "kind": "title1",
+      "maxW": 4400,
+      "text": "Shared components",
+      "w": 240,
+      "x": 0,
+      "y": 8000
+    },
+    "t4": {
+      "kind": "title1",
+      "maxW": 3560,
+      "text": "Mobile (375) – same pages, stacked",
+      "w": 240,
+      "x": 0,
+      "y": 8920
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Guide.dc.html",
+    "Finder.dc.html",
+    "Product.dc.html",
+    "Cart.dc.html",
+    "Confirmation.dc.html",
+    "Help.dc.html",
+    "About.dc.html",
+    "Header.dc.html",
+    "Footer.dc.html",
+    "Trust.dc.html",
+    "ProductCard.dc.html",
+    "Home-m.dc.html",
+    "Guide-m.dc.html",
+    "Finder-m.dc.html",
+    "Product-m.dc.html",
+    "Cart-m.dc.html",
+    "Confirmation-m.dc.html",
+    "Help-m.dc.html",
+    "About-m.dc.html"
+  ],
+  "pages": [],
+  "title": "First Draw – Website V1 Prototype"
+}

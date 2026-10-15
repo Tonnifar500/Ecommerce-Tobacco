@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Header</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<header class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<div style="background:#2A1A12;color:#F6EFE3;font-size:13.5px;text-align:center;padding:9px 16px;line-height:1.4">Free delivery over 500 DKK · Delivered fresh from humidor storage · 18+ only</div>
+<div style="background:#FBF7EF;border-bottom:1px solid #E4D7C2">
+<div class="wrap" style="display:flex;align-items:center;gap:18px;min-height:76px">
+<a href="Main.dc.html" aria-label="First Draw – home" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#2A1A12">
+<svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#C8963E" stroke-width="2"></circle><circle cx="20" cy="20" r="11" fill="none" stroke="#C8963E" stroke-width="1"></circle><circle cx="20" cy="20" r="4.500" fill="#A63A24"></circle></svg>
+<span style="font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.01em">First Draw</span>
+</a>
+<nav class="only-d" aria-label="Main" style="display:flex;gap:24px;margin-left:28px">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+<a class="navlink {{n.cls}}" href="{{n.href}}">{{n.label}}</a>
+</sc-for>
+</nav>
+<div style="margin-left:auto;display:flex;align-items:center;gap:6px">
+<div class="only-d" style="display:flex;align-items:center">
+<label class="sr" for="hdr-search">Search cigars</label>
+<input id="hdr-search" class="field" type="search" placeholder="Search cigars" style="width:200px;min-height:44px;border-radius:999px;padding:0 18px">
+</div>
+<a class="icon-btn only-m" href="Finder.dc.html" aria-label="Search cigars">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+</a>
+<a class="icon-btn" href="Cart.dc.html" aria-label="Cart, {{count}} items">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.200 11H6.200z"></path><path d="M9 8V6a3 3 0 016 0v2"></path></svg>
+<sc-if value="{{hasCount}}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:2px;right:0;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#A63A24;color:#fff;font:700 11px/18px 'Source Sans 3',sans-serif;text-align:center">{{count}}</span></sc-if>
+</a>
+<button type="button" class="icon-btn only-m" aria-label="Menu" aria-expanded="{{open}}" onClick="{{toggle}}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+</button>
+</div>
+</div>
+<sc-if value="{{open}}" hint-placeholder-val="{{ false }}">
+<nav class="only-m" aria-label="Mobile" style="flex-direction:column;padding:6px 18px 18px;border-top:1px solid #E4D7C2;gap:2px">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+<a class="navlink" href="{{n.href}}" style="min-height:48px;font-size:18px">{{n.label}}</a>
+</sc-for>
+</nav>
+</sc-if>
+</div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["start","shop","guides","help","about"],"default":"start","section":"Header"},"$preview":{"width":1280,"height":150}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: false, count: 0 }; }
+  componentDidMount() {
+    const tick = () => {
+      let c = [];
+      try { c = JSON.parse(sessionStorage.getItem('fd_cart') || '[]'); } catch (e) { c = window.__fdCart || []; }
+      const n = c.reduce((a, i) => a + i.qty, 0);
+      if (n !== this.state.count) this.setState({ count: n });
+    };
+    tick();
+    this.timer = setInterval(tick, 500);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    const a = this.props.active || 'start';
+    const items = [
+      {k:'start', label:'Start Here', href:'Guide.dc.html'},
+      {k:'shop', label:'Shop Cigars', href:'Finder.dc.html'},
+      {k:'guides', label:'Guides', href:'Guide.dc.html'},
+      {k:'help', label:'Help', href:'Help.dc.html'},
+      {k:'about', label:'About', href:'About.dc.html'}
+    ];
+    return {
+      open: this.state.open, count: this.state.count, hasCount: this.state.count > 0,
+      toggle: () => this.setState({ open: !this.state.open }),
+      nav: items.map((i) => ({ label: i.label, href: i.href, cls: i.k === a && i.k !== 'guides' ? 'cur' : '' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

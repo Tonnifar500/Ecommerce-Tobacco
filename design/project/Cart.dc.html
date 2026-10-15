@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Cart and checkout (demo)</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}input[type=radio]{width:20px;height:20px;accent-color:#A63A24;margin:0;flex:none}.stepno{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font:600 18px Fraunces,Georgia,serif;flex:none}</style>
+</helmet>
+<div class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<dc-import name="Header" active="shop" hint-size="100%,150px"></dc-import>
+
+<section class="wrap" style="padding-top:40px;padding-bottom:20px;display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Your cart</span><h1 style="font-size:clamp(34px,4.4vw,52px)">Cart &amp; checkout</h1></div>
+<button type="button" class="btn btn-ghost btn-sm" onClick="{{toggleDrawer}}">Preview cart drawer</button>
+</section>
+
+<div class="wrap" style="padding-bottom:56px">
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:28px">
+
+<!-- Cart lines -->
+<section class="card" style="padding:8px 24px 16px">
+<sc-if value="{{hasItems}}" hint-placeholder-val="{{ true }}">
+<ul style="list-style:none;margin:0;padding:0">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="2">
+<li style="display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center;padding:18px 0;border-bottom:1px solid #E4D7C2">
+<div class="img-ph" role="img" aria-label="Photo slot: {{l.name}}" style="width:84px;height:84px;border-radius:10px;flex:none;background:{{l.bg}}"></div>
+<div style="flex:1 1 200px;min-width:0"><div class="eyebrow" style="font-size:12px">{{l.brand}}</div><strong style="font-family:Fraunces,Georgia,serif;font-size:20px">{{l.name}}</strong><div style="font-size:15px;color:#5a4435">{{l.price}} DKK each</div></div>
+<div style="display:inline-flex;align-items:center;border:1.5px solid #B89E7A;border-radius:999px;background:#fff" role="group" aria-label="Quantity of {{l.name}}">
+<button type="button" class="icon-btn" onClick="{{l.dec}}" aria-label="Decrease quantity" style="font-size:22px">−</button>
+<span style="min-width:30px;text-align:center;font-weight:700">{{l.qty}}</span>
+<button type="button" class="icon-btn" onClick="{{l.inc}}" aria-label="Increase quantity" style="font-size:22px">+</button>
+</div>
+<strong style="min-width:84px;text-align:right">{{l.total}} DKK</strong>
+<button type="button" class="chip" onClick="{{l.remove}}" aria-label="Remove {{l.name}}" style="min-height:44px">Remove</button>
+</li>
+</sc-for>
+</ul>
+<div style="padding-top:18px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:600"><span>{{progressText}}</span><span>500 DKK</span></div>
+<div role="progressbar" aria-valuemin="0" aria-valuemax="500" aria-valuenow="{{subtotalNow}}" aria-label="Progress to free delivery" style="height:12px;border-radius:6px;background:#E4D7C2;overflow:hidden"><div style="height:100%;border-radius:6px;background:#C8963E;width:{{progressPct}}"></div></div>
+<p style="font-size:15px;color:#5a4435">Delivery is 39 DKK, arriving in 1–3 working days. Free over 500 DKK.</p>
+</div>
+</sc-if>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<div style="padding:40px 8px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><h3>Your cart is empty</h3><p>Let’s find a first cigar.</p><a class="btn btn-primary" href="Finder.dc.html">Browse cigars</a></div>
+</sc-if>
+</section>
+
+<div style="display:flex;gap:12px;align-items:center;padding:16px 20px;border-radius:12px;border:1px solid #C8963E;background:#FBF3E0">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8A5A3B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M12 3l7 3v5c0 4.500-3 8-7 10-4-2-7-5.500-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
+<span><strong>Age check required at checkout.</strong> You’ll confirm you’re 18+ with MitID in step 2.</span>
+</div>
+
+<!-- Step 1 -->
+<section class="card" style="padding:26px 24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><span class="stepno" style="background:#2A1A12;color:#F6EFE3">1</span><h2 style="font-size:26px">Delivery details</h2></div>
+<p style="color:#3d2a20">Guest checkout. No account needed.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+<div><label class="lbl" for="f-name">Full name</label><input id="f-name" class="field" type="text" autocomplete="name" placeholder="Anna Jensen"></div>
+<div><label class="lbl" for="f-mail">Email (for your care guide)</label><input id="f-mail" class="field" type="email" autocomplete="email" placeholder="anna@example.dk"></div>
+<div style="grid-column:1/-1"><label class="lbl" for="f-street">Street and number</label><input id="f-street" class="field" type="text" autocomplete="street-address" placeholder="Nørrebrogade 12, 2. th"></div>
+<div><label class="lbl" for="f-zip">Postcode</label><input id="f-zip" class="field" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="2200"></div>
+<div><label class="lbl" for="f-city">City</label><input id="f-city" class="field" type="text" autocomplete="address-level2" placeholder="Copenhagen"></div>
+</div>
+<p style="font-size:15px;color:#5a4435">Delivery: 1–3 working days, signed-for by an adult.</p>
+</section>
+
+<!-- Step 2 -->
+<section class="card" style="padding:26px 24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><span class="stepno" style="background:#2A1A12;color:#F6EFE3">2</span><h2 style="font-size:26px">Age verification</h2></div>
+<p style="color:#3d2a20">Tobacco is for adults only. MitID is Denmark’s digital ID. We only learn that you’re 18 or over, nothing else.</p>
+<div style="border:2px dashed #9FB3BD;border-radius:14px;padding:22px;background:#fff;display:flex;flex-direction:column;gap:14px;max-width:460px">
+<strong style="font-size:18px">MitID (demo screen)</strong>
+<div><label class="lbl" for="f-mitid">User ID</label><input id="f-mitid" class="field" type="text" placeholder="Demo – leave empty"></div>
+<sc-if value="{{notVerified}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-primary" onClick="{{verify}}">Verify with MitID (demo)</button></sc-if>
+<sc-if value="{{verified}}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:10px;font-weight:700;color:#2f5d2a"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2f5d2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>Age verified (demo)</div></sc-if>
+<p style="font-size:13.5px;color:#5a4435">Demo only. No real MitID connection is made.</p>
+</div>
+</section>
+
+<!-- Step 3 -->
+<section class="card" style="padding:26px 24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:12px"><span class="stepno" style="background:#2A1A12;color:#F6EFE3">3</span><h2 style="font-size:26px">Payment</h2></div><span class="badge badge-ember">Demo – no real payment</span></div>
+<div role="radiogroup" aria-label="Payment method" style="display:flex;flex-wrap:wrap;gap:12px">
+<label class="fopt" style="flex:1 1 220px;padding:14px 16px;border:2px solid {{cardBorder}};border-radius:12px;background:#fff;font-weight:600;display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="pay" checked="{{isCard}}" onChange="{{payCard}}"> Card</label>
+<label class="fopt" style="flex:1 1 220px;padding:14px 16px;border:2px solid {{mpBorder}};border-radius:12px;background:#fff;font-weight:600;display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="pay" checked="{{isMobilePay}}" onChange="{{payMp}}"> MobilePay</label>
+</div>
+<sc-if value="{{isCard}}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px">
+<div style="grid-column:1/-1"><label class="lbl" for="c-num">Card number (demo)</label><input id="c-num" class="field" type="text" inputmode="numeric" placeholder="0000 0000 0000 0000"></div>
+<div><label class="lbl" for="c-exp">Expiry</label><input id="c-exp" class="field" type="text" placeholder="MM/YY"></div>
+<div><label class="lbl" for="c-cvc">CVC</label><input id="c-cvc" class="field" type="text" inputmode="numeric" placeholder="123"></div>
+</div>
+</sc-if>
+<sc-if value="{{isMobilePay}}" hint-placeholder-val="{{ false }}"><p style="padding:16px;border-radius:10px;background:#EFE3CE">You’d be sent to the MobilePay app to approve the payment. (Demo – this step is skipped.)</p></sc-if>
+<sc-if value="{{canPlace}}" hint-placeholder-val="{{ false }}"><a class="btn btn-gold btn-block" href="Confirmation.dc.html" onClick="{{clearCart}}" data-funnel="purchase:checkout-complete">Place demo order · {{total}} DKK</a></sc-if>
+<sc-if value="{{cannotPlace}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-gold btn-block" disabled="" style="opacity:.55;cursor:not-allowed">{{blockedText}}</button></sc-if>
+</section>
+</div>
+
+<!-- Summary -->
+<aside style="flex:0 1 380px;min-width:300px;width:100%;position:sticky;top:16px;display:flex;flex-direction:column;gap:18px">
+<div class="card" style="padding:24px;display:flex;flex-direction:column;gap:12px;border-color:#C8963E">
+<h2 style="font-size:26px">Order summary</h2>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px"><span>{{l.qty}} × {{l.name}}</span><span>{{l.total}} DKK</span></div></sc-for>
+<hr class="rule">
+<div style="display:flex;justify-content:space-between"><span>Subtotal</span><span>{{subtotal}} DKK</span></div>
+<div style="display:flex;justify-content:space-between"><span>Delivery (1–3 working days)</span><span>{{shipText}}</span></div>
+<hr class="rule">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><strong style="font-size:19px">Total</strong><strong style="font-family:Fraunces,Georgia,serif;font-size:30px">{{total}} DKK</strong></div>
+<p style="font-size:14px;color:#5a4435">VAT included. No surprise fees.</p>
+</div>
+</aside>
+</div>
+</div>
+
+<dc-import name="Trust" hint-size="100%,150px"></dc-import>
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+
+<sc-if value="{{drawer}}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;top:0;right:0;bottom:0;width:min(380px,100%);background:#FBF7EF;border-left:2px solid #C8963E;box-shadow:-12px 0 30px rgba(42,26,18,.25);z-index:50;padding:24px;display:flex;flex-direction:column;gap:14px;overflow:auto" role="dialog" aria-label="Cart drawer">
+<div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:26px">Your cart</h2><button type="button" class="icon-btn" onClick="{{toggleDrawer}}" aria-label="Close cart drawer" style="font-size:24px">×</button></div>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #E4D7C2"><span>{{l.qty}} × {{l.name}}</span><strong>{{l.total}} DKK</strong></div></sc-for>
+<p style="font-weight:600">{{progressText}}</p>
+<div style="display:flex;justify-content:space-between"><span>Subtotal</span><strong>{{subtotal}} DKK</strong></div>
+<p style="font-size:14.5px;color:#5a4435">Age check required at checkout.</p>
+<button type="button" class="btn btn-primary" onClick="{{toggleDrawer}}">Continue to checkout</button>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cart: this.load(), verified: false, pay: 'card', drawer: false };
+  }
+  load() {
+    try { return JSON.parse(sessionStorage.getItem('fd_cart') || '[]'); } catch (e) { return window.__fdCart || []; }
+  }
+  save(c) {
+    try { sessionStorage.setItem('fd_cart', JSON.stringify(c)); } catch (e) { window.__fdCart = c; }
+    this.setState({ cart: c });
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      const c = this.load();
+      if (JSON.stringify(c) !== JSON.stringify(this.state.cart)) this.setState({ cart: c });
+    }, 500);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    const cat = {
+      1:['Aurora Robusto','Casa Aurelia',89],2:['Andes Corona','Casa Aurelia',79],3:['Sierra Dorada Toro','Finca Monta\u00f1a',119],4:['Caf\u00e9 de la Sierra','Finca Monta\u00f1a',109],
+      5:['Golden Hour Petit Corona','Luna Vieja',69],6:['Ember Evening Robusto','Luna Vieja',99],7:['Santiago Reserve','Tabaquera Santiago',149],8:['Volc\u00e1n Maduro','Isla Ceniza',129],
+      9:['Volc\u00e1n Connecticut','Isla Ceniza',95],10:['Noche Fuerte','Isla Ceniza',159],11:['R\u00edo Claro Corona','Valle Brisa',85],12:['Honey Leaf Petit','Valle Brisa',59],
+      13:['Tierra Roja','Rancho Sol',115],14:['Celebration Churchill','Casa Aurelia',169],
+      101:['First Draw Starter Trio','First Draw',229],102:['Colombian Discovery Pack','First Draw',349],103:['Gift Celebration Box','First Draw',399]
+    };
+    const bgFor = (id) => (id > 100 ? 'linear-gradient(135deg,#8f6740,#E3B867)' : 'linear-gradient(135deg,#7a4f33,#D9A85A)');
+    const items = this.state.cart.filter((c) => cat[c.id]).map((c) => ({ id: c.id, name: cat[c.id][0], brand: cat[c.id][1], price: cat[c.id][2], qty: c.qty, bg: bgFor(c.id) }));
+    const st = { ...this.state, items: items };
+    const setQty = (id, d) => this.save(this.state.cart.map((i) => (i.id === id ? { id: i.id, qty: Math.max(1, i.qty + d) } : i)));
+    const lines = st.items.map((i) => ({
+      name: i.name, brand: i.brand, price: i.price, qty: i.qty, total: i.price * i.qty, bg: i.bg,
+      inc: () => setQty(i.id, 1), dec: () => setQty(i.id, -1),
+      remove: () => this.save(this.state.cart.filter((x) => x.id !== i.id))
+    }));
+    const sub = st.items.reduce((a, i) => a + i.price * i.qty, 0);
+    const ship = sub === 0 || sub >= 500 ? 0 : 39;
+    const left = Math.max(0, 500 - sub);
+    const canPlace = st.items.length > 0 && st.verified;
+    return {
+      lines: lines, hasItems: st.items.length > 0, empty: st.items.length === 0,
+      subtotal: sub, subtotalNow: Math.min(sub, 500), total: sub + ship,
+      shipText: sub >= 500 ? 'Free' : (sub === 0 ? '–' : '39 DKK'),
+      progressText: left > 0 ? 'Add ' + left + ' DKK more for free delivery' : 'You’ve unlocked free delivery',
+      progressPct: Math.min(100, (sub / 500) * 100) + '%',
+      verified: st.verified, notVerified: !st.verified,
+      verify: () => this.setState({ verified: true }),
+      isCard: st.pay === 'card', isMobilePay: st.pay === 'mobilepay',
+      cardBorder: st.pay === 'card' ? '#A63A24' : '#B89E7A', mpBorder: st.pay === 'mobilepay' ? '#A63A24' : '#B89E7A',
+      payCard: () => this.setState({ pay: 'card' }), payMp: () => this.setState({ pay: 'mobilepay' }),
+      canPlace: canPlace, cannotPlace: !canPlace,
+      blockedText: st.items.length === 0 ? 'Add a cigar to continue' : 'Verify your age in step 2 to continue',
+      drawer: st.drawer, clearCart: () => this.save([]), toggleDrawer: () => this.setState({ drawer: !st.drawer })
+    };
+  }
+}
+</script>
+</body>
+</html>

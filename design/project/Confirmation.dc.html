@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Order confirmed</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<dc-import name="Header" active="shop" hint-size="100%,150px"></dc-import>
+
+<section class="wrap" style="padding-top:56px;padding-bottom:40px">
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center">
+<div style="flex:1 1 420px;display:flex;flex-direction:column;gap:16px">
+<svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="#C8963E" stroke-width="2"></circle><circle cx="28" cy="28" r="19" fill="#A63A24"></circle><path d="M19 29l6 6 12-13" fill="none" stroke="#F6EFE3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="eyebrow">Demo order</span>
+<h1 style="font-size:clamp(34px,4.6vw,56px)">Thank you. Your first draw is on its way.</h1>
+<p style="font-size:19px;color:#3d2a20">We’ve sent a confirmation and a short care guide to your inbox. Nothing was charged: this is a demo.</p>
+</div>
+<div class="card" style="flex:1 1 360px;padding:26px;border-color:#C8963E;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="color:#5a4435">Order number</span><strong>FD-20418</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="color:#5a4435">Estimated delivery</span><strong>Thursday 15 – Friday 16 October</strong></div>
+<hr class="rule">
+<div style="display:flex;justify-content:space-between;gap:12px"><span>2 × Aurora Robusto</span><span>178 DKK</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span>1 × First Draw Starter Trio</span><span>229 DKK</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span>Delivery</span><span>39 DKK</span></div>
+<hr class="rule">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><strong>Total (demo)</strong><strong style="font-family:Fraunces,Georgia,serif;font-size:26px">446 DKK</strong></div>
+</div>
+</div>
+</section>
+
+<section class="wrap sec" style="padding-top:24px">
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px"><span class="eyebrow">Your care guide</span><h2>From the box to the first puff</h2></div>
+<div style="display:flex;flex-direction:column;gap:20px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<div class="card" style="display:flex;flex-wrap:wrap;gap:0;overflow:hidden">
+<div class="img-ph" role="img" aria-label="Illustration slot: {{s.art}}" style="flex:0 1 240px;min-height:150px;width:100%;max-width:240px"><div class="cap">Illustration – {{s.art}}</div></div>
+<div style="flex:1 1 320px;padding:24px 28px;display:flex;flex-direction:column;gap:8px;justify-content:center">
+<span style="font-family:Fraunces,Georgia,serif;font-size:36px;color:#A63A24;line-height:1">{{s.n}}</span>
+<h3>{{s.title}}</h3>
+<p style="color:#3d2a20">{{s.body}}</p>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="dark-sec on-dark">
+<div class="wrap sec">
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:14px">
+<span class="eyebrow">In your inbox</span>
+<h2>The care guide, by email</h2>
+<p style="color:#E8DCC6">The same steps arrive as a short email you can keep. Here’s a preview.</p>
+</div>
+<div style="flex:1 1 440px;background:#FBF7EF;color:#2A1A12;border-radius:12px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)">
+<div style="padding:14px 18px;border-bottom:1px solid #E4D7C2;font-size:14.5px;color:#5a4435;display:flex;flex-direction:column;gap:2px"><span><strong style="color:#2A1A12">From:</strong> First Draw &lt;hello@firstdraw.example&gt;</span><span><strong style="color:#2A1A12">Subject:</strong> Your cigars are on their way: a quick care guide</span></div>
+<div style="padding:24px 22px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:24px">Welcome to your first draw.</h3>
+<p>Your order FD-20418 is packed and on its way. While you wait, here’s everything you need:</p>
+<p><strong>1. Store it</strong>: cool place, 65–72% humidity.<br><strong>2. Cut it</strong>: clip just the rounded cap.<br><strong>3. Light it</strong>: toast the foot, then puff gently.<br><strong>4. Enjoy it</strong>: slow puffs, never inhale.<br><strong>5. Stop</strong>: whenever it stops tasting good.</p>
+<p style="font-size:15px;color:#5a4435">Questions? Reply to this email. We answer within 1 working day.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="wrap sec">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px">
+<div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Next time</span><h2>If you liked this, try…</h2></div>
+<a class="btn btn-primary" href="Finder.dc.html" data-funnel="post-purchase:what-to-smoke-next">What to smoke next</a>
+</div>
+<div class="g-3">
+<dc-import name="ProductCard" pid="3" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="14" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="11" hint-size="100%,520px"></dc-import>
+</div>
+</section>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      steps: [
+        {n:'1',title:'Store it',body:'Keep your cigars in a humidor, or a sealed container with a humidity pack, in a cool place. Aim for 65–72% humidity and avoid sunlight and the fridge.',art:'a cedar humidor with a small hygrometer'},
+        {n:'2',title:'Cut it',body:'Use a sharp cutter and clip only the rounded cap, about 2 mm. A clean cut makes the draw smooth.',art:'a cutter clipping the cap of a cigar'},
+        {n:'3',title:'Light it',body:'Hold the foot just above a match or soft flame and turn slowly until it glows evenly. Then puff gently. Don’t use a petrol lighter.',art:'a cigar foot being toasted over a match'},
+        {n:'4',title:'Enjoy it',body:'Take a slow puff about once a minute and let the smoke out. Never inhale. Rest it in an ashtray between puffs.',art:'a cigar resting on a crystal ashtray'},
+        {n:'5',title:'Know when to stop',body:'Put it down when it gets hot, bitter or you’ve had enough. Most people stop with the last third left. No one is counting.',art:'a half-smoked cigar left to go out'}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

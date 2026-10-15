@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Aurora Robusto</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}.facts td{padding:11px 8px;border-bottom:1px solid #E4D7C2;vertical-align:top}.facts td:first-child{font-weight:600;width:38%}.bar{height:10px;border-radius:5px;background:#E4D7C2;overflow:hidden;flex:1}.bar span{display:block;height:100%;background:#A63A24;border-radius:5px}</style>
+</helmet>
+<div class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<dc-import name="Header" active="shop" hint-size="100%,150px"></dc-import>
+
+<nav class="wrap" aria-label="Breadcrumb" style="padding-top:20px;font-size:15px"><a href="Main.dc.html">Home</a> / <a href="Finder.dc.html">Shop Cigars</a> / <span>Aurora Robusto</span></nav>
+
+<section class="wrap" style="padding-top:20px;padding-bottom:48px">
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+<!-- Gallery -->
+<div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:14px">
+<div class="img-ph" role="img" aria-label="{{mainAlt}}" style="aspect-ratio:1/1;max-height:600px;width:100%;border-radius:16px;background:{{mainBg}}">
+<div style="position:absolute;top:14px;left:14px"><span class="badge">Beginner-friendly</span></div>
+<div class="cap">Photo slot – {{mainAlt}}</div>
+</div>
+<div style="display:flex;gap:12px">
+<sc-for list="{{thumbs}}" as="t" hint-placeholder-count="4">
+<button type="button" onClick="{{t.pick}}" aria-label="Show photo {{t.n}}" aria-pressed="{{t.on}}" style="flex:1;aspect-ratio:1/1;min-height:64px;border-radius:10px;border:3px solid {{t.border}};background:{{t.bg}};cursor:pointer;padding:0"></button>
+</sc-for>
+</div>
+</div>
+
+<!-- Buy box -->
+<div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span class="eyebrow">Casa Aurelia</span>
+<h1 style="font-size:clamp(34px,4vw,50px)">Aurora Robusto</h1>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:16px">
+<span style="display:inline-flex;align-items:center;gap:8px"><span aria-hidden="true" style="display:inline-block;width:24px;height:16px;border-radius:2px;border:1px solid rgba(42,26,18,.25);background:linear-gradient(#FCD116 50%,#003893 50% 75%,#CE1126 75%)"></span>Colombia</span>
+<span><span class="star" aria-hidden="true">★★★★★</span> <strong>4.8</strong> <a href="#reviews">128 reviews</a></span>
+</div>
+</div>
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+<span style="font-family:Fraunces,Georgia,serif;font-size:42px;font-weight:600">89 DKK</span>
+<span style="color:#2f5d2a;font-weight:700">In stock · ships within 1 working day</span>
+</div>
+<p style="font-size:18px;color:#3d2a20">A mild, creamy cigar with honey sweetness and a whisper of cedar. Gentle enough for a first time, and nice enough to give.</p>
+
+<!-- Is this right for me -->
+<div class="card" style="padding:22px;display:flex;flex-direction:column;gap:14px;border-color:#C8963E;background:#FBF3E0">
+<h2 style="font-size:24px">Is this right for me?</h2>
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-weight:600">Beginner-friendly</span><strong>Yes, a great first cigar</strong></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span style="font-weight:600">Strength</span><span style="display:inline-flex;align-items:center;gap:10px"><span class="meter" role="img" aria-label="Strength 2 of 5"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><strong>Mild–Medium</strong></span></div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-weight:600">Flavour profile</span>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:70px;font-size:15px">Sweet</span><span class="bar" role="img" aria-label="Sweet: 4 of 5"><span style="width:80%"></span></span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:70px;font-size:15px">Creamy</span><span class="bar" role="img" aria-label="Creamy: 5 of 5"><span style="width:100%"></span></span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:70px;font-size:15px">Woody</span><span class="bar" role="img" aria-label="Woody: 2 of 5"><span style="width:40%"></span></span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:70px;font-size:15px">Spicy</span><span class="bar" role="img" aria-label="Spicy: 1 of 5"><span style="width:20%"></span></span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:70px;font-size:15px">Earthy</span><span class="bar" role="img" aria-label="Earthy: 1 of 5"><span style="width:20%"></span></span></div>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-weight:600">Smoking time</span><strong>About 45 minutes</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-weight:600">Best for</span><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag">Gift</span><span class="tag">First-time try</span><span class="tag">Relaxing evening</span></span></div>
+</div>
+
+<!-- Quantity + add -->
+<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+<div style="display:inline-flex;align-items:center;border:1.5px solid #B89E7A;border-radius:999px;background:#fff" role="group" aria-label="Quantity">
+<button type="button" class="icon-btn" onClick="{{dec}}" aria-label="Decrease quantity" style="font-size:22px">−</button>
+<span style="min-width:34px;text-align:center;font-weight:700" aria-live="polite">{{qty}}</span>
+<button type="button" class="icon-btn" onClick="{{inc}}" aria-label="Increase quantity" style="font-size:22px">+</button>
+</div>
+<button type="button" class="btn btn-primary" onClick="{{add}}" style="flex:1 1 220px" data-funnel="consideration:add-to-cart">{{addLabel}}</button>
+</div>
+<sc-if value="{{added}}" hint-placeholder-val="{{ false }}"><a class="btn btn-gold" href="Cart.dc.html">View cart and check out</a></sc-if>
+<a href="Finder.dc.html#packs" style="font-weight:700">Add the starter pack instead (3 mild cigars, 229 DKK) →</a>
+
+<!-- Reassurance -->
+<div style="display:flex;flex-direction:column;gap:10px;padding:18px 20px;border:1px solid #E4D7C2;border-radius:12px;background:#FBF7EF;font-size:16px">
+<div><strong>Stored in a humidor at 70% humidity.</strong> It arrives soft, fresh and ready.</div>
+<div><strong>Replacement guarantee.</strong> If it’s damaged or dry, we’ll send another.</div>
+<div><strong>Delivery:</strong> 39 DKK, free over 500 DKK. Arrives in 1–3 working days. You see the cost before checkout.</div>
+<div><strong>MitID age check.</strong> A quick Danish digital ID check at checkout confirms you’re 18+.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Key facts + accordions -->
+<section class="wrap" style="padding-bottom:56px">
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+<div style="flex:1 1 400px;min-width:0">
+<h2 style="font-size:30px;margin-bottom:12px">Key facts</h2>
+<table class="facts" style="width:100%;border-collapse:collapse">
+<tbody>
+<tr><td>Country of origin</td><td>Colombia</td></tr>
+<tr><td>Wrapper</td><td>Colombian, light golden. The outer leaf you see and touch.</td></tr>
+<tr><td>Binder</td><td>Colombian. The leaf that holds the inside together.</td></tr>
+<tr><td>Filler</td><td>Colombian. The tobacco in the middle that sets the strength.</td></tr>
+<tr><td>Size</td><td>124 mm long, ring gauge 50 (about 2 cm thick)</td></tr>
+<tr><td>Vitola</td><td>Robusto: a classic shape, short and a little thick, easy to enjoy in under an hour.</td></tr>
+<tr><td>Sold as</td><td>Single cigar</td></tr>
+</tbody>
+</table>
+</div>
+<div style="flex:1 1 400px;min-width:0">
+<h2 style="font-size:30px;margin-bottom:12px">Good to know</h2>
+<details open="">
+<summary>Tasting notes</summary>
+<div>Cream and honey on the first puffs, then light cedar and a soft finish. No sharp edges and no bitterness when smoked slowly.</div>
+</details>
+<details>
+<summary>Origin story</summary>
+<div>Casa Aurelia is a small family-run farm in Colombia’s coffee highlands, where leaves are dried slowly in shaded barns and aged for over a year before rolling.</div>
+</details>
+<details>
+<summary>How to enjoy it</summary>
+<div>Clip the rounded end with a cutter, toast the foot with a match, then take slow puffs, about one a minute. Never inhale. Put it down when it stops tasting good; there are no rules about finishing it.</div>
+</details>
+<details>
+<summary>Storage tips</summary>
+<div>Keep it somewhere cool at 65–72% humidity, ideally in a small humidor. For a few days, a zip bag with a damp sponge nearby is fine.</div>
+</details>
+<details>
+<summary>Delivery &amp; returns</summary>
+<div>Delivered in 1–3 working days. If your cigar arrives damaged or dry, email us a photo within 7 days and we’ll replace it.</div>
+</details>
+</div>
+</div>
+</section>
+
+<!-- Reviews -->
+<section id="reviews" class="wrap" style="padding-bottom:56px">
+<div style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;margin-bottom:24px"><h2>Reviews</h2><span><span class="star" aria-hidden="true">★★★★★</span> 4.8 from 128 customers (demo data)</span></div>
+<div class="g-2" style="gap:20px">
+<sc-for list="{{reviews}}" as="r" hint-placeholder-count="4">
+<figure class="card" style="margin:0;padding:22px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span class="star" role="img" aria-label="{{r.stars}} out of 5 stars" style="letter-spacing:2px">{{r.starText}}</span><span class="tag">{{r.tag}}</span></div>
+<blockquote style="margin:0">{{r.text}}</blockquote>
+<figcaption style="font-weight:700;color:#8A5A3B">{{r.who}}</figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section class="wrap" style="padding-bottom:56px">
+<h2 style="margin-bottom:20px">Pairs well with…</h2>
+<div class="g-3" style="gap:20px">
+<sc-for list="{{pairs}}" as="p" hint-placeholder-count="3">
+<a href="Finder.dc.html#packs" class="card" style="padding:22px;text-decoration:none;color:#2A1A12;display:flex;flex-direction:column;gap:6px"><strong style="font-family:Fraunces,Georgia,serif;font-size:20px">{{p.name}}</strong><span>{{p.body}}</span><span style="font-weight:700;color:#8A5A3B">{{p.price}} DKK</span></a>
+</sc-for>
+</div>
+</section>
+
+<section class="wrap" style="padding-bottom:80px">
+<h2 style="margin-bottom:20px">If you like this, try…</h2>
+<div class="g-4">
+<dc-import name="ProductCard" pid="9" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="5" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="2" hint-size="100%,520px"></dc-import>
+<dc-import name="ProductCard" pid="14" hint-size="100%,520px"></dc-import>
+</div>
+</section>
+
+<dc-import name="Trust" hint-size="100%,150px"></dc-import>
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+
+<div class="only-m" style="position:sticky;bottom:0;z-index:10;background:#FBF7EF;border-top:1px solid #C8963E;padding:10px 16px;align-items:center;justify-content:space-between;gap:12px">
+<span style="font-family:Fraunces,Georgia,serif;font-size:22px;font-weight:600">{{total}} DKK</span>
+<button type="button" class="btn btn-primary" onClick="{{add}}" style="flex:1;max-width:240px">{{addLabel}}</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { img: 0, qty: 1, added: false }; }
+  renderVals() {
+    const st = this.state;
+    const caps = [
+      'Aurora Robusto resting on a crystal ashtray in soft window light',
+      'Close-up of the golden wrapper leaf and the gold-and-ember band',
+      'Cigars lying in an open cedar humidor, a wisp of smoke above',
+      'Two friends sharing a quiet evening on a balcony, cigars glowing'
+    ];
+    const bgs = [
+      'linear-gradient(135deg,#7a4f33,#D9A85A)',
+      'linear-gradient(135deg,#8A5A3B,#E3B867)',
+      'linear-gradient(135deg,#432a1d,#8A5A3B)',
+      'linear-gradient(135deg,#2A1A12,#A63A24)'
+    ];
+    return {
+      mainAlt: caps[st.img], mainBg: bgs[st.img],
+      thumbs: bgs.map((b, i) => ({ n: i + 1, bg: b, on: st.img === i, border: st.img === i ? '#A63A24' : 'transparent', pick: () => this.setState({ img: i }) })),
+      qty: st.qty, total: 89 * st.qty, added: st.added,
+      addLabel: st.added ? 'Added to cart' : 'Add to cart · ' + (89 * st.qty) + ' DKK',
+      inc: () => this.setState({ qty: Math.min(10, st.qty + 1), added: false }),
+      dec: () => this.setState({ qty: Math.max(1, st.qty - 1), added: false }),
+      add: () => {
+        let c = [];
+        try { c = JSON.parse(sessionStorage.getItem('fd_cart') || '[]'); } catch (e) { c = window.__fdCart || []; }
+        const hit = c.find((i) => i.id === 1);
+        c = hit ? c.map((i) => (i.id === 1 ? { id: 1, qty: i.qty + st.qty } : i)) : c.concat([{ id: 1, qty: st.qty }]);
+        try { sessionStorage.setItem('fd_cart', JSON.stringify(c)); } catch (e) { window.__fdCart = c; }
+        this.setState({ added: true });
+      },
+      reviews: [
+        {stars:5,starText:'★★★★★',tag:'I’m a beginner',who:'Camilla, Frederiksberg',text:'My first ever cigar and I was nervous. The description was spot on: creamy, easy, no coughing. I felt looked after.'},
+        {stars:5,starText:'★★★★★',tag:'Gift',who:'Henrik, Aalborg',text:'Bought two for my brother’s birthday. Arrived fresh, with a care card that made me look like I knew what I was doing.'},
+        {stars:4,starText:'★★★★☆',tag:'Verified buyer',who:'Anders, Copenhagen',text:'Lovely mild cigar for an evening on the balcony. I would have liked a slightly longer smoke, but that’s a Robusto thing.'},
+        {stars:5,starText:'★★★★★',tag:'Verified buyer',who:'Maja, Odense',text:'Honey and cedar, exactly as promised. Ordering the starter trio next.'}
+      ],
+      pairs: [
+        {name:'First Draw Starter Trio',body:'Three mild cigars and a printed care guide card.',price:229},
+        {name:'Gift Celebration Box',body:'Two cigars, a cutter and matches in a wooden box.',price:399},
+        {name:'Double-blade cutter',body:'A clean cut every time. Fits robusto and toro sizes.',price:149}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

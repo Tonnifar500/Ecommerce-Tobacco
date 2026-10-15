@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Cigar Finder</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}input[type=checkbox]{width:20px;height:20px;accent-color:#A63A24;flex:none;margin:0}input[type=range]{width:100%;accent-color:#A63A24}.fopt{display:flex;align-items:center;gap:10px;min-height:40px;font-size:16px;cursor:pointer}.fsb{display:flex}@media (max-width:860px){.fsb{display:none}.fsb.open{display:flex}}</style>
+</helmet>
+<div class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<dc-import name="Header" active="shop" hint-size="100%,150px"></dc-import>
+
+<section class="wrap" style="padding-top:40px;padding-bottom:20px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<span class="eyebrow">Shop cigars</span>
+<h1 style="font-size:clamp(34px,4.4vw,52px)">Find your cigar</h1>
+<p style="font-size:19px;max-width:640px;color:#3d2a20">Every filter has a plain-English hint. Look for the small “i”.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px" role="group" aria-label="Quick categories">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+<button type="button" class="chip {{c.cls}}" onClick="{{c.pick}}" aria-pressed="{{c.on}}">{{c.label}}</button>
+</sc-for>
+<a class="chip" href="#packs">Starter packs</a>
+</div>
+</section>
+
+<section class="wrap" style="padding-bottom:20px">
+<div class="card" style="background:#FBF3E0;border-color:#C8963E;padding:18px 22px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between">
+<div><strong style="font-family:Fraunces,Georgia,serif;font-size:21px">Not sure? Let us help.</strong><br><span>Three quick questions and we’ll suggest 2–3 cigars.</span></div>
+<a class="btn btn-primary btn-sm" href="Guide.dc.html#quiz" data-funnel="engagement:finder-to-quiz">Take the 3-question quiz</a>
+</div>
+</section>
+
+<div class="wrap" style="padding-bottom:56px">
+<button type="button" class="btn btn-ghost btn-sm only-m" onClick="{{toggleFilters}}" aria-expanded="{{showFilters}}" style="margin-bottom:16px">{{filterBtn}}</button>
+<div style="display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start">
+
+<aside class="fsb {{openCls}}" aria-label="Filters" style="flex:0 0 270px;flex-direction:column;gap:6px;max-width:100%;width:100%;max-width:270px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><h2 style="font-size:24px">Filters</h2><button type="button" class="chip" onClick="{{clearAll}}" style="min-height:36px;padding:0 12px;font-size:14px">Clear all</button></div>
+<label class="fopt" style="padding:10px 12px;background:#FBF3E0;border:1px solid #C8963E;border-radius:10px;font-weight:600"><input type="checkbox" checked="{{beginnerOnly}}" onChange="{{toggleBeginner}}"> Beginner-friendly only</label>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<fieldset style="border:0;border-top:1px solid #E4D7C2;padding:12px 0 6px;margin:0">
+<legend style="font-family:Fraunces,Georgia,serif;font-weight:600;font-size:18px;padding:0 0 4px;float:left;width:100%">{{g.title}}</legend>
+<div style="clear:both;display:flex;flex-direction:column">
+<sc-for list="{{g.opts}}" as="o" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<label class="fopt"><input type="checkbox" checked="{{o.checked}}" onChange="{{o.toggle}}"> {{o.label}}</label>
+<button type="button" class="term" aria-label="About {{o.label}}" style="border:1.5px solid #8A5A3B;border-radius:50%;width:22px;height:22px;font-size:12px;line-height:19px;text-align:center;font-family:Fraunces,Georgia,serif;font-style:italic;flex:none">i<span class="pop" style="left:auto;right:0">{{o.hint}}</span></button>
+</div>
+</sc-for>
+</div>
+</fieldset>
+</sc-for>
+<div style="border-top:1px solid #E4D7C2;padding:12px 0">
+<label class="lbl" for="price" style="font-family:Fraunces,Georgia,serif;font-size:18px">Price: up to {{maxPrice}} DKK</label>
+<input id="price" type="range" min="50" max="170" step="5" value="{{maxPrice}}" onInput="{{onPrice}}">
+<p style="font-size:14px;color:#5a4435">Our cigars run from 59 to 169 DKK.</p>
+</div>
+</aside>
+
+<main style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+<p style="font-weight:600">{{countText}}</p>
+<div style="display:flex;align-items:center;gap:10px">
+<label class="lbl" for="sort" style="margin:0">Sort</label>
+<select id="sort" class="field" style="width:auto;min-width:230px" onChange="{{onSort}}">
+<option value="rec">Recommended for beginners</option>
+<option value="priceUp">Price: low to high</option>
+<option value="priceDown">Price: high to low</option>
+<option value="strUp">Strength: mild to full</option>
+<option value="rating">Rating</option>
+</select>
+</div>
+</div>
+
+<sc-if value="{{hasResults}}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px">
+<sc-for list="{{items}}" as="p" hint-placeholder-count="6">
+<dc-import name="ProductCard" pid="{{p.id}}" hint-size="100%,520px"></dc-import>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}">
+<div class="card" style="padding:44px 28px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center">
+<h3>No match – try removing a filter or take the quiz.</h3>
+<p style="color:#3d2a20">Sometimes one filter too many hides a good cigar.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+<button type="button" class="btn btn-primary btn-sm" onClick="{{clearAll}}">Clear all filters</button>
+<a class="btn btn-ghost btn-sm" href="Guide.dc.html#quiz">Take the quiz</a>
+</div>
+</div>
+</sc-if>
+</main>
+</div>
+</div>
+
+<section id="packs" class="dark-sec on-dark">
+<div class="wrap sec">
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px"><span class="eyebrow">Starter &amp; sampler packs</span><h2>Can’t decide? Start with a few.</h2></div>
+<div class="g-3">
+<sc-for list="{{packs}}" as="k" hint-placeholder-count="3">
+<div style="background:#3a251a;border:1px solid #6b4430;border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:12px">
+<span class="badge badge-dark" style="align-self:flex-start">{{k.tag}}</span>
+<h3>{{k.name}}</h3>
+<p style="color:#E8DCC6;flex:1">{{k.body}}</p>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font-family:Fraunces,Georgia,serif;font-size:28px">{{k.price}} <span style="font-size:15px;font-family:'Source Sans 3',sans-serif">DKK</span></span><button type="button" class="btn btn-gold btn-sm" onClick="{{k.add}}" style="min-width:120px">{{k.label}}</button></div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<dc-import name="Trust" hint-size="100%,150px"></dc-import>
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { chip: 'all', str: [], flav: [], occ: [], country: [], size: [], max: 170, beg: false, sort: 'rec', open: false, packAdded: 0 };
+  }
+  renderVals() {
+    const st = this.state;
+    // id, strength, flavours, occasions, country, price, size, beginner, rating
+    const P = [
+      [1,2,['sweet','woody'],['gift','first','relax'],'Colombia',89,'Robusto',1,4.8],
+      [2,2,['woody','sweet'],['first','out'],'Colombia',79,'Corona',1,4.7],
+      [3,3,['coffee','spicy'],['celeb','relax'],'Colombia',119,'Toro',1,4.8],
+      [4,3,['coffee'],['relax'],'Colombia',109,'Robusto',0,4.6],
+      [5,1,['sweet'],['first','out'],'Dominican Republic',69,'Petit corona',1,4.9],
+      [6,3,['woody'],['out','relax'],'Dominican Republic',99,'Robusto',1,4.7],
+      [7,4,['spicy','coffee'],['celeb'],'Dominican Republic',149,'Toro',0,4.7],
+      [8,4,['coffee','earthy'],['relax'],'Nicaragua',129,'Robusto',0,4.6],
+      [9,2,['sweet','woody'],['first','gift'],'Nicaragua',95,'Robusto',1,4.8],
+      [10,5,['spicy','earthy'],['celeb'],'Nicaragua',159,'Toro',0,4.5],
+      [11,3,['woody','spicy'],['out','gift'],'Honduras',85,'Corona',1,4.6],
+      [12,1,['sweet'],['first','out'],'Ecuador',59,'Petit corona',1,4.7],
+      [13,4,['earthy','spicy'],['relax'],'Mexico',115,'Robusto',0,4.5],
+      [14,3,['sweet','woody'],['celeb','gift'],'Colombia',169,'Churchill',1,4.9]
+    ];
+    const flip = (arr, v) => (arr.indexOf(v) > -1 ? arr.filter((x) => x !== v) : arr.concat([v]));
+    const mkGroup = (title, key, opts) => ({
+      title: title,
+      opts: opts.map((o) => ({ label: o[1], hint: o[2], checked: st[key].indexOf(o[0]) > -1, toggle: () => this.setState({ [key]: flip(st[key], o[0]) }) }))
+    });
+    const groups = [
+      mkGroup('Strength', 'str', [[1,'Mild','Light and creamy. The gentlest start.'],[2,'Mild–Medium','A little more flavour, still smooth.'],[3,'Medium','Noticeable body, cocoa or toasted nut notes.'],[4,'Medium–Full','Bold and peppery. For when you know your taste.'],[5,'Full','Very strong and intense. Best saved for later.']]),
+      mkGroup('Flavour', 'flav', [['sweet','Sweet & creamy','Honey, vanilla and butter. Smooth and friendly.'],['woody','Woody & nutty','Cedar, toast and nuts. Warm and familiar.'],['spicy','Spicy','A tingle of pepper or nutmeg on the tongue.'],['earthy','Earthy','Rich and dry, like a forest after rain.'],['coffee','Coffee & cocoa','Espresso and dark chocolate. Deep and satisfying.']]),
+      mkGroup('Occasion', 'occ', [['celeb','Celebration','Cigars with a sense of occasion.'],['gift','Gift','Easy to love and nice to give.'],['relax','Relaxing evening','Medium body for slow evenings.'],['out','Outdoors / with friends','Shorter smokes that fit a good conversation.'],['first','First-time try','Mild, creamy and forgiving.']]),
+      mkGroup('Country of origin', 'country', [['Colombia','Colombia','Often smooth and sweet.'],['Dominican Republic','Dominican Republic','Classic, mellow and creamy.'],['Nicaragua','Nicaragua','Bolder, peppery and earthy.'],['Honduras','Honduras','Rich and woody, medium body.'],['Ecuador','Ecuador','Known for silky, light wrapper leaves.'],['Mexico','Mexico','Sweet spice and earth.']]),
+      mkGroup('Size', 'size', [['Robusto','Robusto','Short and thick, about 45–60 minutes.'],['Corona','Corona','Slim and classic, about 45 minutes.'],['Toro','Toro','Longer and thicker, 70–90 minutes.'],['Petit corona','Petit corona','Small and quick, about 30 minutes.']])
+    ];
+    let rows = P.filter((r) => {
+      if (st.chip === 'beginner' && !r[7]) return false;
+      if (st.chip === 'colombia' && r[4] !== 'Colombia') return false;
+      if (st.chip === 'gifts' && r[3].indexOf('gift') < 0) return false;
+      if (st.chip === 'mild' && r[1] > 2) return false;
+      if (st.beg && !r[7]) return false;
+      if (st.str.length && st.str.indexOf(r[1]) < 0) return false;
+      if (st.flav.length && !st.flav.some((f) => r[2].indexOf(f) > -1)) return false;
+      if (st.occ.length && !st.occ.some((o) => r[3].indexOf(o) > -1)) return false;
+      if (st.country.length && st.country.indexOf(r[4]) < 0) return false;
+      if (st.size.length && st.size.indexOf(r[6]) < 0) return false;
+      return r[5] <= st.max;
+    });
+    const sorts = {
+      rec: (a, b) => b[7] - a[7] || a[1] - b[1] || b[8] - a[8],
+      priceUp: (a, b) => a[5] - b[5],
+      priceDown: (a, b) => b[5] - a[5],
+      strUp: (a, b) => a[1] - b[1],
+      rating: (a, b) => b[8] - a[8]
+    };
+    rows = rows.slice().sort(sorts[st.sort]);
+    const chipDefs = [['all','All cigars'],['beginner','Beginner picks'],['colombia','Colombian cigars'],['gifts','Gifts'],['mild','Mild & smooth']];
+    const active = st.str.length + st.flav.length + st.occ.length + st.country.length + st.size.length + (st.beg ? 1 : 0) + (st.max < 170 ? 1 : 0);
+    return {
+      groups: groups,
+      chips: chipDefs.map((c) => ({ label: c[1], on: st.chip === c[0], cls: st.chip === c[0] ? 'on' : '', pick: () => this.setState({ chip: c[0] }) })),
+      items: rows.map((r) => ({ id: r[0] })),
+      hasResults: rows.length > 0, noResults: rows.length === 0,
+      countText: 'Showing ' + rows.length + (rows.length === 1 ? ' cigar' : ' cigars'),
+      maxPrice: st.max, beginnerOnly: st.beg, showFilters: st.open,
+      openCls: st.open ? 'open' : '',
+      filterBtn: (st.open ? 'Hide filters' : 'Show filters') + (active ? ' (' + active + ')' : ''),
+      toggleFilters: () => this.setState({ open: !st.open }),
+      toggleBeginner: () => this.setState({ beg: !st.beg }),
+      onPrice: (e) => this.setState({ max: Number(e.target.value) }),
+      onSort: (e) => this.setState({ sort: e.target.value }),
+      clearAll: () => this.setState({ chip: 'all', str: [], flav: [], occ: [], country: [], size: [], max: 170, beg: false }),
+      packs: [
+        {tag:'Mild · 3 cigars',name:'First Draw Starter Trio',body:'Three mild cigars (Aurora Robusto, Golden Hour Petit Corona, Volcán Connecticut), with a printed care guide card.',price:229},
+        {tag:'Colombian · 4 cigars',name:'Colombian Discovery Pack',body:'Aurora Robusto, Andes Corona, Sierra Dorada Toro and Celebration Churchill: four ways to taste Colombia.',price:349},
+        {tag:'Gift · boxed',name:'Gift Celebration Box',body:'Two cigars, a cutter and matches in a wooden box. Ready to give.',price:399}
+      ].map((k, i) => ({
+        ...k,
+        label: st.packAdded === 101 + i ? 'Added' : 'Add to cart',
+        add: () => {
+          const id = 101 + i;
+          let c = [];
+          try { c = JSON.parse(sessionStorage.getItem('fd_cart') || '[]'); } catch (e) { c = window.__fdCart || []; }
+          const hit = c.find((x) => x.id === id);
+          c = hit ? c.map((x) => (x.id === id ? { id: id, qty: x.qty + 1 } : x)) : c.concat([{ id: id, qty: 1 }]);
+          try { sessionStorage.setItem('fd_cart', JSON.stringify(c)); } catch (e) { window.__fdCart = c; }
+          this.setState({ packAdded: id });
+          setTimeout(() => this.setState({ packAdded: 0 }), 1600);
+        }
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

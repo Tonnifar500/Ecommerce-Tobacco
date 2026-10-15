@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Help and support</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="fd-root" style="font-family:'Source Sans 3',system-ui,sans-serif">
+<dc-import name="Header" active="help" hint-size="100%,150px"></dc-import>
+
+<section class="wrap" style="padding-top:48px;padding-bottom:28px">
+<div style="max-width:720px;display:flex;flex-direction:column;gap:16px">
+<span class="eyebrow">Help &amp; support</span>
+<h1 style="font-size:clamp(34px,4.6vw,56px)">How can we help?</h1>
+<hr class="rule-l">
+<div>
+<label class="lbl" for="faq-search">Search the answers</label>
+<input id="faq-search" class="field" type="search" placeholder="Try “age”, “dry” or “delivery”" value="{{query}}" onInput="{{onQuery}}" style="min-height:56px;border-radius:999px;padding:0 22px;font-size:18px">
+</div>
+</div>
+</section>
+
+<div class="wrap" style="padding-bottom:64px">
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+<div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:36px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="6">
+<section id="{{g.id}}">
+<h2 style="font-size:28px;margin-bottom:6px">{{g.title}}</h2>
+<div style="border-top:1px solid #E4D7C2">
+<sc-for list="{{g.items}}" as="q" hint-placeholder-count="2">
+<details>
+<summary>{{q.q}}</summary>
+<div>{{q.a}}</div>
+</details>
+</sc-for>
+</div>
+</section>
+</sc-for>
+<sc-if value="{{noMatch}}" hint-placeholder-val="{{ false }}">
+<div class="card" style="padding:36px 28px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center"><h3>No answers found for “{{query}}”</h3><p>Try a simpler word, or send us a message. We’re happy to help.</p><a class="btn btn-primary btn-sm" href="#contact">Contact us</a></div>
+</sc-if>
+</div>
+
+<aside id="contact" style="flex:0 1 400px;min-width:300px;width:100%;position:sticky;top:16px">
+<div class="card" style="padding:28px;border-color:#C8963E;display:flex;flex-direction:column;gap:14px">
+<h2 style="font-size:28px">Still stuck? Write to us.</h2>
+<p>Email <a href="Help.dc.html">hello@firstdraw.example</a><br><strong>We reply within 1 working day.</strong></p>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div><label class="lbl" for="h-name">Your name</label><input id="h-name" class="field" type="text" autocomplete="name"></div>
+<div><label class="lbl" for="h-mail">Email</label><input id="h-mail" class="field" type="email" autocomplete="email"></div>
+<div><label class="lbl" for="h-msg">How can we help?</label><textarea id="h-msg" class="field"></textarea></div>
+<button type="button" class="btn btn-primary" onClick="{{send}}">Send message</button>
+</div>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px;border-radius:10px;background:#EFE3CE;display:flex;flex-direction:column;gap:6px"><strong>Message sent (demo).</strong><span>Thank you. We’ll reply within 1 working day.</span></div>
+</sc-if>
+</div>
+</aside>
+</div>
+</div>
+
+<dc-import name="Trust" hint-size="100%,150px"></dc-import>
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { query: '', sent: false }; }
+  renderVals() {
+    const G = [
+      {id:'age',title:'Age verification',items:[
+        ['Why do you check my age?','Tobacco products can only be sold to adults aged 18 and over in Denmark. We check before every order.'],
+        ['How does the MitID check work?','At checkout you confirm with MitID, Denmark’s digital ID. We only learn that you’re 18 or over. We don’t see or store anything else.'],
+        ['Can someone else receive the parcel?','Parcels are handed to an adult. The carrier may ask for ID on delivery.']]},
+      {id:'delivery',title:'Delivery & shipping',items:[
+        ['How long does delivery take?','1–3 working days after we ship. Most orders ship within 1 working day.'],
+        ['How much is delivery?','39 DKK. It’s free on orders over 500 DKK. You see the cost in your cart, before checkout.'],
+        ['Can I track my parcel?','Yes. You’ll get a tracking link by email as soon as your order ships.']]},
+      {id:'freshness',title:'Freshness & storage',items:[
+        ['How do you keep cigars fresh?','Every cigar is stored in a humidor at about 70% humidity and packed in protective sleeves for the journey.'],
+        ['How should I store mine at home?','Somewhere cool, at 65–72% humidity. A small humidor is ideal. For a few days, a sealed bag with a humidity pack works.'],
+        ['How long can I keep a cigar?','Properly stored, many months. If you’re just starting, enjoy them within a few weeks for the best taste.']]},
+      {id:'damaged',title:'Damaged or dry cigars',items:[
+        ['My cigar arrived damaged or dry. What now?','Email us a photo within 7 days. We’ll send a replacement. No return needed.'],
+        ['What does a dry cigar feel like?','It feels brittle or crackly when gently squeezed, and may smoke hot and harsh. A fresh cigar has a soft spring.']]},
+      {id:'returns',title:'Returns & replacement',items:[
+        ['Can I return a cigar I don’t like?','Because of hygiene and freshness rules, we can’t take back opened cigars. Unopened packs can be returned within 14 days.'],
+        ['What does the replacement guarantee cover?','Any cigar that arrives damaged, dry or different from what you ordered.']]},
+      {id:'contact-faq',title:'Contact',items:[
+        ['How can I reach you?','Use the form on this page or email hello@firstdraw.example. We reply within 1 working day.'],
+        ['I’m new and don’t know what to order. Can you help?','Of course. Take our 3-question quiz in the Beginner Guide, or tell us the occasion and we’ll suggest something.']]}
+    ];
+    const q = this.state.query.trim().toLowerCase();
+    const groups = G.map((g) => ({
+      id: g.id, title: g.title,
+      items: g.items.filter((i) => !q || (i[0] + ' ' + i[1]).toLowerCase().indexOf(q) > -1).map((i) => ({ q: i[0], a: i[1] }))
+    })).filter((g) => g.items.length > 0);
+    return {
+      groups: groups, noMatch: groups.length === 0, query: this.state.query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      sent: this.state.sent, notSent: !this.state.sent,
+      send: () => this.setState({ sent: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

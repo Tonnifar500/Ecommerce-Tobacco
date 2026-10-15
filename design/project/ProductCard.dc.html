@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First Draw – Product card</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./fd.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<article class="card" style="font-family:'Source Sans 3',system-ui,sans-serif;overflow:hidden;display:flex;flex-direction:column;height:100%;color:#2A1A12">
+<div class="img-ph" role="img" aria-label="{{alt}}" style="height:190px;background:{{imgBg}}">
+<div style="position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+<sc-if value="{{beginner}}" hint-placeholder-val="{{ true }}"><span class="badge">Beginner-friendly</span></sc-if>
+<sc-if value="{{mild}}" hint-placeholder-val="{{ false }}"><span class="badge badge-ember">Mild &amp; smooth</span></sc-if>
+</div>
+<div class="cap">{{alt}}</div>
+</div>
+<div style="padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1">
+<div>
+<div class="eyebrow" style="font-size:12px">{{brand}}</div>
+<h3 style="font-size:21px;margin-top:2px"><a href="Product.dc.html" style="color:#2A1A12;text-decoration:none">{{name}}</a></h3>
+</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:14.5px;color:#3d2a20">
+<span aria-hidden="true" style="display:inline-block;width:22px;height:15px;border-radius:2px;border:1px solid rgba(42,26,18,.25);background:{{flag}}"></span>
+<span>{{country}}</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px">
+<span class="meter" role="img" aria-label="Strength {{str}} of 5">
+<sc-for list="{{segs}}" as="s" hint-placeholder-count="5"><span class="seg {{s.cls}}"></span></sc-for>
+</span>
+<span style="font-weight:600">{{strLabel}}</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{notes}}" as="n" hint-placeholder-count="3"><span class="tag">{{n}}</span></sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:14.5px"><span class="star" aria-hidden="true">★</span><span aria-label="Rated {{rating}} out of 5">{{rating}}</span></div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:6px">
+<span style="font-family:Fraunces,Georgia,serif;font-size:24px;font-weight:600">{{price}} <span style="font-size:14px;font-family:'Source Sans 3',sans-serif">DKK</span></span>
+<button type="button" class="btn btn-primary btn-sm" onClick="{{add}}" style="min-width:104px">{{addLabel}}</button>
+</div>
+</div>
+</article>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"pid":{"editor":"int","default":1,"min":1,"max":14,"section":"Product"},"$preview":{"width":300,"height":540}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { added: false }; }
+  renderVals() {
+    const P = [
+      [1,'Aurora Robusto','Casa Aurelia','Colombia',2,['Cream','Honey','Light cedar'],1,89,4.8],
+      [2,'Andes Corona','Casa Aurelia','Colombia',2,['Almond','Vanilla','Toast'],1,79,4.7],
+      [3,'Sierra Dorada Toro','Finca Monta\u00f1a','Colombia',3,['Cocoa','Caramel','Soft spice'],1,119,4.8],
+      [4,'Caf\u00e9 de la Sierra','Finca Monta\u00f1a','Colombia',3,['Coffee','Dark chocolate'],0,109,4.6],
+      [5,'Golden Hour Petit Corona','Luna Vieja','Dominican Republic',1,['Light','Creamy','Sweet hay'],1,69,4.9],
+      [6,'Ember Evening Robusto','Luna Vieja','Dominican Republic',3,['Toasted nuts','Leather'],1,99,4.7],
+      [7,'Santiago Reserve','Tabaquera Santiago','Dominican Republic',4,['Pepper','Cedar','Espresso'],0,149,4.7],
+      [8,'Volc\u00e1n Maduro','Isla Ceniza','Nicaragua',4,['Dark cocoa','Black pepper','Earth'],0,129,4.6],
+      [9,'Volc\u00e1n Connecticut','Isla Ceniza','Nicaragua',2,['Butter','Cedar','Light spice'],1,95,4.8],
+      [10,'Noche Fuerte','Isla Ceniza','Nicaragua',5,['Strong pepper','Tobacco','Dark roast'],0,159,4.5],
+      [11,'R\u00edo Claro Corona','Valle Brisa','Honduras',3,['Cedar','Nutmeg','Dried fruit'],1,85,4.6],
+      [12,'Honey Leaf Petit','Valle Brisa','Ecuador',1,['Honey','Hay','Soft wood'],1,59,4.7],
+      [13,'Tierra Roja','Rancho Sol','Mexico',4,['Earthy','Sweet spice','Cocoa'],0,115,4.5],
+      [14,'Celebration Churchill','Casa Aurelia','Colombia',3,['Smooth','Vanilla','Toasted bread'],1,169,4.9]
+    ];
+    const r = P.find((x) => x[0] === Number(this.props.pid)) || P[0];
+    const flags = {
+      'Colombia':'linear-gradient(#FCD116 50%,#003893 50% 75%,#CE1126 75%)',
+      'Dominican Republic':'linear-gradient(90deg,#002D62 0 45%,#ffffff 45% 55%,#CE1126 55%)',
+      'Nicaragua':'linear-gradient(#0067C6 33%,#ffffff 33% 66%,#0067C6 66%)',
+      'Honduras':'linear-gradient(#0073CF 33%,#ffffff 33% 66%,#0073CF 66%)',
+      'Ecuador':'linear-gradient(#FFDD00 50%,#034EA2 50% 75%,#ED1C24 75%)',
+      'Mexico':'linear-gradient(90deg,#006847 33%,#ffffff 33% 66%,#CE1126 66%)'
+    };
+    const bgs = ['','linear-gradient(135deg,#8f6740,#E3B867)','linear-gradient(135deg,#7a4f33,#D9A85A)','linear-gradient(135deg,#5f3b28,#B7803F)','linear-gradient(135deg,#432a1d,#8A5A3B)','linear-gradient(135deg,#2A1A12,#5b3825)'];
+    const labels = ['','Mild','Mild\u2013Medium','Medium','Medium\u2013Full','Full'];
+    const str = r[4];
+    return {
+      name: r[1], brand: r[2], country: r[3], str: str, strLabel: labels[str],
+      notes: r[5], beginner: r[6] === 1, mild: str <= 2, price: r[7], rating: r[8].toFixed(1),
+      flag: flags[r[3]], imgBg: bgs[str],
+      alt: 'Photo slot \u2013 ' + r[1] + ' resting on a wooden tray in soft light',
+      segs: [1,2,3,4,5].map((i) => ({ cls: i <= str ? 'on' : '' })),
+      addLabel: this.state.added ? 'Added' : 'Quick add',
+      add: () => {
+        const id = Number(this.props.pid) || 1;
+        let c = [];
+        try { c = JSON.parse(sessionStorage.getItem('fd_cart') || '[]'); } catch (e) { c = window.__fdCart || []; }
+        const hit = c.find((i) => i.id === id);
+        c = hit ? c.map((i) => (i.id === id ? { id: id, qty: i.qty + 1 } : i)) : c.concat([{ id: id, qty: 1 }]);
+        try { sessionStorage.setItem('fd_cart', JSON.stringify(c)); } catch (e) { window.__fdCart = c; }
+        this.setState({ added: true });
+        setTimeout(() => this.setState({ added: false }), 1600);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

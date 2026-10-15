@@ -1,0 +1,107 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import ImgPh from "@/components/ImgPh";
+import TrustBar from "@/components/TrustBar";
+
+export const metadata: Metadata = { title: "About us", description: "A small Danish team of enthusiasts who remember being beginners." };
+
+const origins = [
+  { country: "Colombia", body: "Highland farms where leaves are cured slowly in shaded barns. Known for smooth, sweet cigars that suit beginners.", farms: ["Casa Aurelia", "Finca Montaña"] },
+  { country: "Dominican Republic", body: "Long-established rolling houses with a classic, mellow style. Where many people’s first cigar comes from.", farms: ["Luna Vieja", "Tabaquera Santiago"] },
+  { country: "Nicaragua", body: "Volcanic soil and bold leaves. We offer mild Connecticut-wrapped blends and richer maduros for later.", farms: ["Isla Ceniza"] },
+];
+const team = [
+  { name: "Mads Holm", role: "Co-founder, selection", line: "Smoked his first cigar at his brother’s wedding. Hated it, then found a mild one.", bg: "linear-gradient(135deg,#7a4f33,#D9A85A)" },
+  { name: "Ida Krogh", role: "Co-founder, sourcing", line: "Visits every farm herself and keeps the notebook of who rolls what.", bg: "linear-gradient(135deg,#5f3b28,#B7803F)" },
+  { name: "Jonas Berg", role: "Humidor & shipping", line: "The person who makes sure your cigar is soft and fresh when it leaves the building.", bg: "linear-gradient(135deg,#8A5A3B,#E3B867)" },
+  { name: "Sara Winther", role: "Customer guidance", line: "Answers the emails. No question is too basic for her.", bg: "linear-gradient(135deg,#432a1d,#8A5A3B)" },
+];
+const how = [
+  ["How we select", "Taste-tested, beginner-friendly first", "Every cigar is smoked by at least three of us before it goes on the shelf. We rate strength, smoothness and how forgiving it is. If a beginner wouldn’t enjoy it, we say so on the page."],
+  ["How we source", "Small farms we know by name", "We work with a handful of family farms and rollers, so we can tell you where each cigar comes from and who made it."],
+  ["How we store", "Humidor-fresh, every time", "Cigars live in our humidor room at about 70% humidity until the moment we pack your order."],
+];
+
+export default function AboutPage() {
+  return (
+    <>
+      <section className="wrap" style={{ paddingTop: 56, paddingBottom: 56 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
+          <div style={{ flex: "1 1 440px", display: "flex", flexDirection: "column", gap: 20 }}>
+            <span className="eyebrow">About First Draw</span>
+            <h1 style={{ fontSize: "clamp(34px,4.8vw,58px)" }}>We remember being beginners.</h1>
+            <hr className="rule-l" />
+            <p style={{ fontSize: 20, color: "#3d2a20" }}>First Draw is a small Danish team of enthusiasts who still remember our own first cigar: the nerves, the jargon and the fear of doing it wrong. We built the shop we wished we’d had.</p>
+          </div>
+          <ImgPh alt="Photo slot: the founding team around a table with cigars and coffee" label="Photo slot – the team around a wooden table with coffee and a few cigars, warm evening light" style={{ flex: "1 1 380px", minHeight: 380, borderRadius: 18, border: "2px solid #C8963E" }} />
+        </div>
+      </section>
+
+      <section className="wrap" style={{ paddingBottom: 64 }}>
+        <div className="g-3">
+          {how.map(([e, h, p]) => (
+            <div key={e} className="card" style={{ padding: 28, display: "flex", flexDirection: "column", gap: 10 }}>
+              <span className="eyebrow">{e}</span><h3>{h}</h3><p>{p}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="dark-sec on-dark">
+        <div className="wrap sec">
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
+            <span className="eyebrow">Where our cigars come from</span>
+            <h2>Farms and partners (fictional)</h2>
+          </div>
+          <div className="g-3">
+            {origins.map((o) => (
+              <div key={o.country} style={{ background: "#3a251a", border: "1px solid #6b4430", borderRadius: 14, padding: 26, display: "flex", flexDirection: "column", gap: 10 }}>
+                <h3>{o.country}</h3>
+                <p style={{ color: "#E8DCC6" }}>{o.body}</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>{o.farms.map((f) => <span key={f} className="badge badge-dark">{f}</span>)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="wrap sec">
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
+          <ImgPh alt="Photo slot: the humidor room with cedar shelves and a hygrometer" label="Photo slot – our humidor room: cedar shelves, glass door, hygrometer reading 70%" style={{ flex: "1 1 380px", minHeight: 360, borderRadius: 18 }} />
+          <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 16 }}>
+            <span className="eyebrow">Our promise</span>
+            <h2>Honest guidance. Fresh cigars. No snobbery.</h2>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
+              <li>We describe every cigar plainly, including who it isn’t for.</li>
+              <li>If a cigar arrives damaged or dry, we replace it.</li>
+              <li>We check age on every order, because it’s the right thing to do.</li>
+              <li>No question is too basic. Ask us anything.</li>
+            </ul>
+            <div><Link className="btn btn-primary" href="/guide">Start with the guide</Link></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="wrap" style={{ paddingBottom: 80 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
+          <span className="eyebrow">The team</span>
+          <h2>The people behind First Draw</h2>
+        </div>
+        <div className="g-4">
+          {team.map((t) => (
+            <div key={t.name} className="card" style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}>
+              <ImgPh alt={`Portrait slot: ${t.name}`} label="Portrait slot" style={{ height: 230, background: t.bg }} />
+              <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: 4 }}>
+                <h3 style={{ fontSize: 21 }}>{t.name}</h3>
+                <span style={{ fontWeight: 700, color: "#8A5A3B" }}>{t.role}</span>
+                <p style={{ fontSize: 15.5 }}>{t.line}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <TrustBar />
+    </>
+  );
+}
