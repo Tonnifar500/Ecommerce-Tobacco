@@ -63,7 +63,7 @@ async function ProductContent({ params }: { params: PageProps<"/product/[slug]">
 
       <section className="wrap" style={{ paddingTop: 20, paddingBottom: 48 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-start" }}>
-          <Gallery name={p.name} strength={p.strength} beginner={p.beginner} />
+          <Gallery name={p.name} strength={p.strength} beginner={p.beginner} image={p.image} />
 
           <div style={{ flex: "1 1 440px", minWidth: 0, display: "flex", flexDirection: "column", gap: 18 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
