@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ImgPh from "@/components/ImgPh";
+import LoopVideo from "@/components/LoopVideo";
 import ProductCard from "@/components/ProductCard";
 import TrustBar from "@/components/TrustBar";
 import { getProduct, OCCASION_LABELS, type Occasion } from "@/lib/products";
@@ -36,17 +36,12 @@ export default function Home() {
             </div>
             <p style={{ fontSize: 15, color: "#5a4435" }}>No jargon, no pressure. If a word is new, we explain it.</p>
           </div>
-          <div
-            className="hero-video"
-            role="img"
-            aria-label="A thin wisp of smoke rising slowly against a dark background"
-            style={{ flex: "1 1 380px", minHeight: 460, position: "relative", overflow: "hidden", borderRadius: "220px 220px 18px 18px", border: "2px solid #C8963E", outline: "1px solid #C8963E", outlineOffset: 6, background: "#0b0b0d url(/video/hero-smoke-poster.jpg) 50% 85% / cover no-repeat" }}
-          >
-            <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-smoke-poster.jpg" aria-hidden="true" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 85%" }}>
-              <source src="/video/hero-smoke.webm" type="video/webm" />
-              <source src="/video/hero-smoke.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <LoopVideo
+            name="hero-smoke"
+            alt="A thin wisp of smoke rising slowly against a dark background"
+            position="50% 85%"
+            style={{ flex: "1 1 380px", minHeight: 460, borderRadius: "220px 220px 18px 18px", border: "2px solid #C8963E", outline: "1px solid #C8963E", outlineOffset: 6 }}
+          />
         </div>
       </section>
 
@@ -142,7 +137,7 @@ export default function Home() {
 
       <section className="wrap" style={{ paddingBottom: 80 }}>
         <div className="card card-gold" style={{ padding: 0, overflow: "hidden", display: "flex", flexWrap: "wrap" }}>
-          <ImgPh alt="Photo slot: hands holding an unlit cigar beside a cutter" label="Photo slot – hands holding an unlit cigar beside a cutter, shallow focus" style={{ flex: "1 1 320px", minHeight: 280 }} />
+          <LoopVideo name="farmer-donkey" alt="A farmer in a straw hat leading a donkey loaded with young tobacco plants up a green hillside" style={{ flex: "1 1 320px", minHeight: 280 }} />
           <div style={{ flex: "1 1 380px", padding: 40, display: "flex", flexDirection: "column", gap: 16, justifyContent: "center" }}>
             <span className="eyebrow">From the guide</span>
             <h2>How to choose your first cigar in 3 minutes</h2>

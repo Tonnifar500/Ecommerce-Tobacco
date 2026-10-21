@@ -34,7 +34,7 @@ export default function AboutPage() {
             <hr className="rule-l" />
             <p style={{ fontSize: 20, color: "#3d2a20" }}>First Draw is a small Danish team of enthusiasts who still remember our own first cigar: the nerves, the jargon and the fear of doing it wrong. We built the shop we wished we’d had.</p>
           </div>
-          <ImgPh alt="Photo slot: the founding team around a table with cigars and coffee" label="Photo slot – the team around a wooden table with coffee and a few cigars, warm evening light" style={{ flex: "1 1 380px", minHeight: 380, borderRadius: 18, border: "2px solid #C8963E" }} />
+          <div role="img" aria-label="The First Draw team gathered around a wooden table with coffee" style={{ flex: "1 1 380px", minHeight: 380, borderRadius: 18, border: "2px solid #C8963E", background: "center / cover no-repeat url(/about/team.png)" }} />
         </div>
       </section>
 
