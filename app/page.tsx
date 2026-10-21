@@ -36,11 +36,17 @@ export default function Home() {
             </div>
             <p style={{ fontSize: 15, color: "#5a4435" }}>No jargon, no pressure. If a word is new, we explain it.</p>
           </div>
-          <ImgPh
-            alt="Photo slot: a cigar resting on a crystal ashtray in soft window light"
-            label="Photo slot – a cigar resting on a crystal ashtray in soft window light, warm afternoon tones"
-            style={{ flex: "1 1 380px", minHeight: 460, borderRadius: "220px 220px 18px 18px", border: "2px solid #C8963E", outline: "1px solid #C8963E", outlineOffset: 6 }}
-          />
+          <div
+            className="hero-video"
+            role="img"
+            aria-label="A thin wisp of smoke rising slowly against a dark background"
+            style={{ flex: "1 1 380px", minHeight: 460, position: "relative", overflow: "hidden", borderRadius: "220px 220px 18px 18px", border: "2px solid #C8963E", outline: "1px solid #C8963E", outlineOffset: 6, background: "#0b0b0d url(/video/hero-smoke-poster.jpg) 50% 85% / cover no-repeat" }}
+          >
+            <video autoPlay muted loop playsInline preload="auto" poster="/video/hero-smoke-poster.jpg" aria-hidden="true" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 85%" }}>
+              <source src="/video/hero-smoke.webm" type="video/webm" />
+              <source src="/video/hero-smoke.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
 
