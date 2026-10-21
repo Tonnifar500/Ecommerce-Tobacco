@@ -98,3 +98,4 @@ input[type=range]{width:100%;accent-color:#A63A24}
 
 /* Checkout */
 .stepno{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font:600 18px var(--serif);flex:none;background:#2A1A12;color:#F6EFE3}
+@media (prefers-reduced-motion:reduce){.hero-video video{display:none}}
