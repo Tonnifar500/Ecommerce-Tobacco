@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ImgPh from "@/components/ImgPh";
 import LoopVideo from "@/components/LoopVideo";
 import TrustBar from "@/components/TrustBar";
 
@@ -12,11 +11,11 @@ const origins = [
   { country: "Nicaragua", body: "Volcanic soil and bold leaves. We offer mild Connecticut-wrapped blends and richer maduros for later.", farms: ["Isla Ceniza"] },
 ];
 const team = [
-  { name: "Jakob Skovbye Brandt", role: "Co-founder, selection", line: "Tastes every cigar before it reaches the shelf and decides what makes the cut.", bg: "linear-gradient(135deg,#7a4f33,#D9A85A)" },
-  { name: "Olivia Simon-Pallesen", role: "Co-founder, sourcing", line: "Works with the farms and rolling houses, and keeps track of who rolls what.", bg: "linear-gradient(135deg,#5f3b28,#B7803F)" },
-  { name: "Bertram Costa", role: "Head of Sales", line: "Makes sure the right cigars are in stock and the starter packs stay good value.", bg: "linear-gradient(135deg,#8A5A3B,#E3B867)" },
-  { name: "Marcus Feltmann Espersen", role: "Head of IT", line: "Builds and runs the shop, from the cigar finder to a smooth checkout.", bg: "linear-gradient(135deg,#432a1d,#8A5A3B)" },
-  { name: "Rasmus Thers", role: "Marketing", line: "Tells the First Draw story and keeps every page in plain, friendly language.", bg: "linear-gradient(135deg,#2A1A12,#A63A24)" },
+  { name: "Jakob Skovbye Brandt", role: "Co-founder, selection", line: "Tastes every cigar before it reaches the shelf and decides what makes the cut.", photo: "/team/jakob-skovbye-brandt.jpg" },
+  { name: "Olivia Simon-Pallesen", role: "Co-founder, sourcing", line: "Works with the farms and rolling houses, and keeps track of who rolls what.", photo: "/team/olivia-simon-pallesen.jpg" },
+  { name: "Bertram Costa", role: "Head of Sales", line: "Makes sure the right cigars are in stock and the starter packs stay good value.", photo: "/team/bertram-costa.jpg" },
+  { name: "Marcus Feltmann Espersen", role: "Head of IT", line: "Builds and runs the shop, from the cigar finder to a smooth checkout.", photo: "/team/marcus-feltmann-espersen.jpg" },
+  { name: "Rasmus Thers", role: "Marketing", line: "Tells the First Draw story and keeps every page in plain, friendly language.", photo: "/team/rasmus-thers.jpg" },
 ];
 const how = [
   ["How we select", "Taste-tested, beginner-friendly first", "Every cigar is smoked by at least three of us before it goes on the shelf. We rate strength, smoothness and how forgiving it is. If a beginner wouldn’t enjoy it, we say so on the page."],
@@ -92,7 +91,7 @@ export default function AboutPage() {
         <div className="g-4" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))" }}>
           {team.map((t) => (
             <div key={t.name} className="card" style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}>
-              <ImgPh alt={`Portrait slot: ${t.name}`} label="Portrait slot" style={{ height: 230, background: t.bg }} />
+              <div role="img" aria-label={`Portrait of ${t.name}`} style={{ aspectRatio: "4 / 5", background: `center 20% / cover no-repeat url(${t.photo})` }} />
               <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: 4 }}>
                 <h3 style={{ fontSize: 21 }}>{t.name}</h3>
                 <span style={{ fontWeight: 700, color: "#8A5A3B" }}>{t.role}</span>
