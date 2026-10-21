@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ImgPh from "@/components/ImgPh";
+import LoopVideo from "@/components/LoopVideo";
 import TrustBar from "@/components/TrustBar";
 
 export const metadata: Metadata = { title: "About us", description: "A small Danish team of enthusiasts who remember being beginners." };
@@ -68,7 +69,7 @@ export default function AboutPage() {
 
       <section className="wrap sec">
         <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
-          <ImgPh alt="Photo slot: the humidor room with cedar shelves and a hygrometer" label="Photo slot – our humidor room: cedar shelves, glass door, hygrometer reading 70%" style={{ flex: "1 1 380px", minHeight: 360, borderRadius: 18 }} />
+          <LoopVideo name="lighter-flame" alt="Close-up of a lighter flame flickering against a dark background" style={{ flex: "1 1 380px", minHeight: 360, borderRadius: 18 }} />
           <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 16 }}>
             <span className="eyebrow">Our promise</span>
             <h2>Honest guidance. Fresh cigars. No snobbery.</h2>
