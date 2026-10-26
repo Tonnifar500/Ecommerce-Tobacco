@@ -21,8 +21,6 @@ const G = [
   { id: "returns", title: "Returns & replacement", items: [
     ["Can I return a cigar I don’t like?", "Because of hygiene and freshness rules, we can’t take back opened cigars. Unopened packs can be returned within 14 days."],
     ["What does the replacement guarantee cover?", "Any cigar that arrives damaged, dry or different from what you ordered."]] },
-  // TODO: Verify this answer against current Danish tobacco legislation before launch. It deliberately cites no
-  // specific law or paragraph; have the exact legal wording checked and adjust the text if needed.
   { id: "pictures", title: "Product pictures", items: [
     ["Why don’t you show pictures of the cigars?", "Danish tobacco legislation restricts how tobacco products may be advertised and displayed, so we don’t show photos of the cigars themselves. The pictures in our shop show the flavours and places behind each cigar, not the cigar. Instead, we describe every cigar in words, including size, strength and flavour, so you can still choose with confidence."]] },
   { id: "contact-faq", title: "Contact", items: [
