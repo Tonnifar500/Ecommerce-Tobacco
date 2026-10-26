@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 const G = [
   { id: "age", title: "Age verification", items: [
@@ -21,12 +21,20 @@ const G = [
   { id: "returns", title: "Returns & replacement", items: [
     ["Can I return a cigar I don’t like?", "Because of hygiene and freshness rules, we can’t take back opened cigars. Unopened packs can be returned within 14 days."],
     ["What does the replacement guarantee cover?", "Any cigar that arrives damaged, dry or different from what you ordered."]] },
+  // TODO: Verify this answer against current Danish tobacco legislation before launch. It deliberately cites no
+  // specific law or paragraph; have the exact legal wording checked and adjust the text if needed.
+  { id: "pictures", title: "Product pictures", items: [
+    ["Why don’t you show pictures of the cigars?", "Danish tobacco legislation restricts how tobacco products may be advertised and displayed, so we don’t show photos of the cigars themselves. The pictures in our shop show the flavours and places behind each cigar, not the cigar. Instead, we describe every cigar in words, including size, strength and flavour, so you can still choose with confidence."]] },
   { id: "contact-faq", title: "Contact", items: [
     ["How can I reach you?", "Use the form on this page or email hello@firstdraw.example. We reply within 1 working day."],
-    ["I’m new and don’t know what to order. Can you help?", "Of course. Take our 3-question quiz in the Beginner Guide, or tell us the occasion and we’ll suggest something."]] },
+    ["I’m new and don’t know what to order. Can you help?", "Of course. Take our 3-question quiz under “Find my cigar” (it takes about 1 minute), or tell us the occasion and we’ll suggest something."]] },
 ];
 
+// The URL hash (e.g. /help#pictures), so a linked section opens its answers.
+const subscribeHash = (cb: () => void) => { window.addEventListener("hashchange", cb); return () => window.removeEventListener("hashchange", cb); };
+
 export default function HelpCenter() {
+  const hash = useSyncExternalStore(subscribeHash, () => window.location.hash.slice(1), () => "");
   const [query, setQuery] = useState("");
   const [sent, setSent] = useState(false);
   const q = query.trim().toLowerCase();
@@ -54,7 +62,7 @@ export default function HelpCenter() {
                 <h2 style={{ fontSize: 28, marginBottom: 6 }}>{g.title}</h2>
                 <div style={{ borderTop: "1px solid #E4D7C2" }}>
                   {g.items.map(([a, b]) => (
-                    <details key={a} open={!!q}><summary>{a}</summary><div>{b}</div></details>
+                    <details key={a} open={!!q || hash === g.id}><summary>{a}</summary><div>{b}</div></details>
                   ))}
                 </div>
               </section>

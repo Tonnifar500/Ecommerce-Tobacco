@@ -79,14 +79,6 @@ export const STRENGTH_BG = [
 
 export const photoBg = (src: string) => `center / cover no-repeat url(${src})`;
 
-export const VITOLA_EXPLAINED: Record<Vitola, string> = {
-  "Petit corona": "Small and quick: a short, slim cigar for a short break.",
-  Corona: "Slim and classic. A relaxed smoke of about 45 minutes.",
-  Robusto: "A classic shape: short and a little thick, easy to enjoy in under an hour.",
-  Toro: "Longer and thicker than a robusto, made for a slow evening.",
-  Churchill: "Long and elegant. Block out an evening and settle in.",
-};
-
 export const ORIGIN_STORIES: Record<string, string> = {
   "Casa Aurelia":
     "Casa Aurelia is a small family-run farm in Colombia’s coffee highlands, where leaves are dried slowly in shaded barns and aged for over a year before rolling.",

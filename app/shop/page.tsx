@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Finder from "@/components/Finder";
 import TrustBar from "@/components/TrustBar";
 
-export const metadata: Metadata = { title: "Cigar Finder" };
+export const metadata: Metadata = { title: "Shop cigars" };
 
 export default function ShopPage() {
   return (

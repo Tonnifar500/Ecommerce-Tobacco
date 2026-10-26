@@ -62,7 +62,7 @@ export default function Quiz() {
           <p>Based on your answers, these are the best places to begin. All are beginner-friendly where possible.</p>
           <div className="g-3" style={{ gap: 20 }}>{results.map((p) => <ProductCard key={p.id} p={p} />)}</div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            <Link className="btn btn-primary" href="/shop" data-funnel="consideration:quiz-to-finder">See all cigars in the Finder</Link>
+            <Link className="btn btn-primary" href="/shop" data-funnel="consideration:quiz-to-finder">Browse all cigars</Link>
             <button type="button" className="btn btn-ghost" onClick={restart}>Start over</button>
           </div>
         </div>

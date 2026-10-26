@@ -141,8 +141,8 @@ export default function GuidePage() {
 
             <section className="on-dark" style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-start", padding: 36, borderRadius: 16, background: "#2A1A12", color: "#F6EFE3" }}>
               <h2>Ready to look around?</h2>
-              <p style={{ color: "#E8DCC6", maxWidth: 520 }}>The Finder lets you filter by strength, flavour and occasion, and every filter comes with a plain-English hint.</p>
-              <Link className="btn btn-gold" href="/shop" data-funnel="consideration:guide-to-finder" style={{ color: "#2A1A12" }}>Open the Cigar Finder</Link>
+              <p style={{ color: "#E8DCC6", maxWidth: 520 }}>Our shop lets you filter by strength, flavour and occasion, and every filter comes with a plain-English hint.</p>
+              <Link className="btn btn-gold" href="/shop" data-funnel="consideration:guide-to-finder" style={{ color: "#2A1A12" }}>Browse all cigars</Link>
             </section>
           </article>
         </div>

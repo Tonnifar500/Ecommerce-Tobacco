@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
+import { explainStrength, explainVitola, explainWrapper } from "@/lib/glossary";
 import { photoBg, STRENGTH_BG, STRENGTH_LABELS, type Product } from "@/lib/products";
 import Flag from "./Flag";
 import StrengthMeter from "./StrengthMeter";
+import Term from "./Term";
 
 export default function ProductCard({ p }: { p: Product }) {
   const { add } = useCart();
@@ -13,8 +15,8 @@ export default function ProductCard({ p }: { p: Product }) {
   const alt = p.image?.alt ?? `Photo slot – ${p.name} resting on a wooden tray in soft light`;
 
   return (
-    <article className="card" style={{ overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
-      <Link href={`/product/${p.slug}`} tabIndex={-1} aria-hidden="true" style={{ display: "block" }}>
+    <article className="card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Link href={`/product/${p.slug}`} tabIndex={-1} aria-hidden="true" style={{ display: "block", overflow: "hidden", borderRadius: "13px 13px 0 0" }}>
         <div className="img-ph" role="img" aria-label={alt} style={{ height: 190, background: p.image ? photoBg(p.image.src) : STRENGTH_BG[p.strength] }}>
           <div style={{ position: "absolute", top: 12, left: 12, display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}>
             {p.beginner && <span className="badge">Beginner-friendly</span>}
@@ -36,7 +38,13 @@ export default function ProductCard({ p }: { p: Product }) {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14 }}>
           <StrengthMeter value={p.strength} />
-          <span style={{ fontWeight: 600 }}>{STRENGTH_LABELS[p.strength]}</span>
+          <Term tip={explainStrength(p.strength)}>{STRENGTH_LABELS[p.strength]}</Term>
+        </div>
+        <div style={{ fontSize: 14, color: "#3d2a20" }}>
+          <Term tip={explainVitola(p.vitola)}>{p.vitola}</Term> · about {p.minutes} minutes
+        </div>
+        <div style={{ fontSize: 14, color: "#3d2a20" }}>
+          <Term tip={explainWrapper(p.wrapper)}>Wrapper</Term>: {p.wrapper}
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {p.notes.map((n) => (

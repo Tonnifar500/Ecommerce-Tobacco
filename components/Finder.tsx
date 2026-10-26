@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { FLAVOUR_LABELS, OCCASION_LABELS, packs, products, type Country, type Flavour, type Occasion, type Vitola } from "@/lib/products";
+import { QUIZ_LENGTH } from "@/lib/quiz";
 import ProductCard from "./ProductCard";
 
 type Chip = "all" | "beginner" | "colombia" | "gifts" | "mild";
@@ -121,8 +122,9 @@ function FinderInner() {
       <section className="wrap" style={{ paddingTop: 40, paddingBottom: 20 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <span className="eyebrow">Shop cigars</span>
-          <h1 style={{ fontSize: "clamp(34px,4.4vw,52px)" }}>Find your cigar</h1>
+          <h1 style={{ fontSize: "clamp(34px,4.4vw,52px)" }}>Browse all cigars</h1>
           <p style={{ fontSize: 19, maxWidth: 640, color: "#3d2a20" }}>Every filter has a plain-English hint. Look for the small “i”.</p>
+          <p style={{ fontSize: 15, color: "#5a4435" }}>Why are there no photos of the cigars? <Link href="/help#pictures">Read why</Link>.</p>
           {q && <p style={{ fontWeight: 600 }}>Search results for “{sp.get("q")}” · <Link href="/shop">clear search</Link></p>}
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }} role="group" aria-label="Quick categories">
@@ -138,9 +140,9 @@ function FinderInner() {
           <div>
             <strong style={{ fontFamily: "var(--serif)", fontSize: 21 }}>Not sure? Let us help.</strong>
             <br />
-            <span>Three quick questions and we’ll suggest 2–3 cigars.</span>
+            <span>We’ll suggest 2–3 cigars that suit you. {QUIZ_LENGTH}.</span>
           </div>
-          <Link className="btn btn-primary btn-sm" href="/guide#quiz" data-funnel="engagement:finder-to-quiz">Take the 3-question quiz</Link>
+          <Link className="btn btn-primary btn-sm" href="/quiz" data-funnel="engagement:finder-to-quiz">Take the 3-question quiz</Link>
         </div>
       </section>
 
@@ -193,7 +195,7 @@ function FinderInner() {
                 <p style={{ color: "#3d2a20" }}>Sometimes one filter too many hides a good cigar.</p>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
                   <button type="button" className="btn btn-primary btn-sm" onClick={clearAll}>Clear all filters</button>
-                  <Link className="btn btn-ghost btn-sm" href="/guide#quiz">Take the quiz</Link>
+                  <Link className="btn btn-ghost btn-sm" href="/quiz">Take the quiz</Link>
                 </div>
               </div>
             )}
