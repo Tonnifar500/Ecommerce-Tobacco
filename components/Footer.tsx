@@ -23,10 +23,10 @@ export default function Footer() {
           </div>
           <div style={col}>
             <h4 style={h}>Shop</h4>
-            <Link style={a} href="/guide">Start Here</Link>
+            <Link style={a} href="/quiz">Find my cigar</Link>
             <Link style={a} href="/shop">Shop Cigars</Link>
             <Link style={a} href="/shop#packs">Starter packs</Link>
-            <Link style={a} href="/guide">Guides</Link>
+            <Link style={a} href="/guide">Beginner Guide</Link>
           </div>
           <div style={col}>
             <h4 style={h}>Help</h4>

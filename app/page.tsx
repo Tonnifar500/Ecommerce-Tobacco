@@ -3,6 +3,7 @@ import LoopVideo from "@/components/LoopVideo";
 import ProductCard from "@/components/ProductCard";
 import TrustBar from "@/components/TrustBar";
 import { getProduct, OCCASION_LABELS, type Occasion } from "@/lib/products";
+import { QUIZ_LENGTH } from "@/lib/quiz";
 
 const steps = [
   { n: "1", title: "Choose with our guide", body: "Answer three simple questions or browse beginner picks. Every cigar term is explained in plain language." },
@@ -31,10 +32,10 @@ export default function Home() {
             <hr className="rule-l" />
             <p style={{ fontSize: 21, maxWidth: 520, color: "#3d2a20" }}>Simple guidance, honest descriptions and fresh delivery.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 6 }}>
-              <Link className="btn btn-primary" href="/guide" data-funnel="engagement:start-here">Start Here – New to cigars?</Link>
+              <Link className="btn btn-primary" href="/quiz" data-funnel="engagement:start-here">Find my first cigar</Link>
               <Link className="btn btn-ghost" href="/shop" data-funnel="awareness:browse-all">Browse all cigars</Link>
             </div>
-            <p style={{ fontSize: 15, color: "#5a4435" }}>No jargon, no pressure. If a word is new, we explain it.</p>
+            <p style={{ fontSize: 15, color: "#5a4435" }}><strong>{QUIZ_LENGTH}.</strong> No jargon, no pressure. If a word is new, we explain it.</p>
           </div>
           <LoopVideo
             name="hero-smoke"
@@ -54,11 +55,11 @@ export default function Home() {
             <p>A three-minute guide to strength, flavour and the words people use, plus a short quiz.</p>
             <span style={{ fontWeight: 700, color: "#8A5A3B" }}>Read the Beginner Guide →</span>
           </Link>
-          <Link href="/shop" className="card" style={cardLink}>
+          <Link href="/quiz" className="card" style={cardLink}>
             <svg width="34" height="34" viewBox="0 0 24 24" {...ic} aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2" /><path d="M12 8v13M3 13h18M12 8c-2.5 0-4-1-4-2.5S9.5 3 12 8c2.5-5 4-3.5 4-2" /></svg>
-            <h3>Shop by occasion</h3>
-            <p>Celebrating, gifting or just unwinding? We’ll show cigars that suit the moment.</p>
-            <span style={{ fontWeight: 700, color: "#8A5A3B" }}>Open the Finder →</span>
+            <h3>Let us choose for you</h3>
+            <p>Celebrating, gifting or just unwinding? Tell us the moment and your taste, and we’ll suggest 2–3 cigars. {QUIZ_LENGTH}.</p>
+            <span style={{ fontWeight: 700, color: "#8A5A3B" }}>Take the quiz →</span>
           </Link>
           <Link href="/shop#packs" className="card" style={cardLink}>
             <svg width="34" height="34" viewBox="0 0 24 24" {...ic} aria-hidden="true"><rect x="3" y="9" width="18" height="11" rx="2" /><path d="M3 13h18M8 9V6h8v3" /></svg>

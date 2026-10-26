@@ -7,9 +7,9 @@ import { useCart } from "@/lib/cart";
 import Logo from "./Logo";
 
 const NAV = [
-  { href: "/guide", label: "Start Here", match: "/guide" },
+  { href: "/quiz", label: "Find my cigar", match: "/quiz" },
   { href: "/shop", label: "Shop Cigars", match: "/shop" },
-  { href: "/guide#picks", label: "Guides", match: "" },
+  { href: "/guide", label: "Beginner Guide", match: "/guide" },
   { href: "/help", label: "Help", match: "/help" },
   { href: "/about", label: "About", match: "/about" },
 ];

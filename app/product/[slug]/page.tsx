@@ -8,7 +8,8 @@ import Gallery from "@/components/Gallery";
 import ProductCard from "@/components/ProductCard";
 import StrengthMeter from "@/components/StrengthMeter";
 import TrustBar from "@/components/TrustBar";
-import { DELIVERY_FEE, FREE_DELIVERY_FROM, OCCASION_LABELS, ORIGIN_STORIES, VITOLA_EXPLAINED, getProductBySlug, packs, products, recommendFor, reviewsFor } from "@/lib/products";
+import { BINDER, FILLER, STRENGTH_PLAIN, explainVitola, explainWrapper } from "@/lib/glossary";
+import { DELIVERY_FEE, FREE_DELIVERY_FROM, OCCASION_LABELS, ORIGIN_STORIES, getProductBySlug, packs, products, recommendFor, reviewsFor } from "@/lib/products";
 
 // All 14 product pages are prerendered; skip the dev-only instant-navigation check for the dynamic slug.
 export const instant = false;
@@ -83,7 +84,18 @@ async function ProductContent({ params }: { params: PageProps<"/product/[slug]">
             <div className="card card-gold" style={{ padding: 22, display: "flex", flexDirection: "column", gap: 14, background: "#FBF3E0" }}>
               <h2 style={{ fontSize: 24 }}>Is this right for me?</h2>
               <div style={row}><span style={{ fontWeight: 600 }}>Beginner-friendly</span><strong>{p.beginner ? "Yes, a good first cigar" : "Not ideal for a first cigar"}</strong></div>
-              <div style={{ ...row, alignItems: "center" }}><span style={{ fontWeight: 600 }}>Strength</span><StrengthMeter value={p.strength} showLabel /></div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <div style={{ ...row, alignItems: "center" }}><span style={{ fontWeight: 600 }}>Strength</span><StrengthMeter value={p.strength} showLabel /></div>
+                <span style={{ fontSize: 15, color: "#5a4435" }}>{STRENGTH_PLAIN[p.strength]}</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <div style={row}><span style={{ fontWeight: 600 }}>Size</span><strong>{p.vitola}</strong></div>
+                <span style={{ fontSize: 15, color: "#5a4435" }}>{explainVitola(p.vitola)}</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <div style={row}><span style={{ fontWeight: 600 }}>Wrapper</span><strong>{p.wrapper}</strong></div>
+                <span style={{ fontSize: 15, color: "#5a4435" }}>{explainWrapper(p.wrapper)}</span>
+              </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 <span style={{ fontWeight: 600 }}>Flavour profile</span>
                 {PROFILE_LABELS.map(([k, label]) => (
@@ -120,11 +132,11 @@ async function ProductContent({ params }: { params: PageProps<"/product/[slug]">
             <table className="facts" style={{ width: "100%", borderCollapse: "collapse" }}>
               <tbody>
                 <tr><td>Country of origin</td><td>{p.country}</td></tr>
-                <tr><td>Wrapper</td><td>{p.wrapper}. The outer leaf you see and touch.</td></tr>
-                <tr><td>Binder</td><td>{p.binder}. The leaf that holds the inside together.</td></tr>
-                <tr><td>Filler</td><td>{p.filler}. The tobacco in the middle that sets the strength.</td></tr>
+                <tr><td>Wrapper</td><td>{p.wrapper}. {explainWrapper(p.wrapper)}</td></tr>
+                <tr><td>Binder</td><td>{p.binder}. {BINDER}</td></tr>
+                <tr><td>Filler</td><td>{p.filler}. {FILLER}</td></tr>
                 <tr><td>Size</td><td>{p.lengthMm} mm long, ring gauge {p.ring} (about {(p.ring * 0.0397).toFixed(1)} cm thick)</td></tr>
-                <tr><td>Vitola</td><td>{p.vitola}: {VITOLA_EXPLAINED[p.vitola]}</td></tr>
+                <tr><td>Vitola</td><td>{explainVitola(p.vitola)}</td></tr>
                 <tr><td>Sold as</td><td>Single cigar</td></tr>
               </tbody>
             </table>
