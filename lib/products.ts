@@ -41,6 +41,7 @@ export type Pack = {
   price: number;
   tagline?: string;
   contents?: string[];
+  image?: { src: string; alt: string };
 };
 
 export const STRENGTH_LABELS = ["", "Mild", "Mild–Medium", "Medium", "Medium–Full", "Full"];
@@ -141,12 +142,14 @@ export const packs: Pack[] = [
     contents: [
       "3 mild cigars: Golden Hour Petit Corona, Aurora Robusto and Volcán Connecticut",
       "Guillotine cutter",
+      "Soft-flame lighter",
       "Wooden matches",
       "Ashtray",
       "Travel case with a humidity pouch to keep the cigars fresh",
       "Printed 6-step guide card",
     ],
     price: 449,
+    image: { src: "/products/first-draw-starter-set.jpg", alt: "An open wooden box with a cigar case, a cutter, a lighter and an ashtray in a cream insert" },
   },
 ];
 
@@ -166,7 +169,7 @@ export function getItem(id: number): CatalogueItem | undefined {
   const p = getProduct(id);
   if (p) return { id, name: p.name, brand: p.brand, price: p.price, href: `/product/${p.slug}`, bg: p.image ? photoBg(p.image.src) : STRENGTH_BG[p.strength] };
   const k = packs.find((x) => x.id === id);
-  if (k) return { id, name: k.name, brand: "First Draw", price: k.price, href: "/shop#packs", bg: STRENGTH_BG[1] };
+  if (k) return { id, name: k.name, brand: "First Draw", price: k.price, href: "/shop#packs", bg: k.image ? photoBg(k.image.src) : STRENGTH_BG[1] };
   return undefined;
 }
 

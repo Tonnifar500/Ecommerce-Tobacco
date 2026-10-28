@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
-import { FLAVOUR_LABELS, OCCASION_LABELS, packs, products, type Country, type Flavour, type Occasion, type Vitola } from "@/lib/products";
+import { FLAVOUR_LABELS, OCCASION_LABELS, packs, photoBg, products, type Country, type Flavour, type Occasion, type Vitola } from "@/lib/products";
 import { QUIZ_LENGTH } from "@/lib/quiz";
 import ProductCard from "./ProductCard";
 
@@ -219,6 +219,7 @@ function FinderInner() {
           <div className="g-3">
             {packs.map((k) => (
               <div key={k.id} id={k.slug} style={{ background: "#3a251a", border: "1px solid #6b4430", borderRadius: 14, padding: 26, display: "flex", flexDirection: "column", gap: 12, scrollMarginTop: 16 }}>
+                {k.image && <div role="img" aria-label={k.image.alt} style={{ aspectRatio: "4 / 3", borderRadius: 10, background: photoBg(k.image.src) }} />}
                 <span className="badge badge-dark" style={{ alignSelf: "flex-start" }}>{k.tag}</span>
                 <h3>{k.name}</h3>
                 {k.tagline && <p style={{ color: "#C8963E", fontWeight: 600 }}>{k.tagline}</p>}
