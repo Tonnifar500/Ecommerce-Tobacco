@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { FLAVOUR_LABELS, OCCASION_LABELS, packs, products, type Country, type Flavour, type Occasion, type Vitola } from "@/lib/products";
 import { QUIZ_LENGTH } from "@/lib/quiz";
@@ -90,6 +90,13 @@ function FinderInner() {
   const [open, setOpen] = useState(false);
   const [packAdded, setPackAdded] = useState(0);
   const q = (sp.get("q") || "").trim().toLowerCase();
+
+  // This list renders in the browser only, so on a full page load the browser can't find /shop#packs (or a single
+  // pack's id) before it exists. Scroll to it once it has rendered.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) document.getElementById(id)?.scrollIntoView();
+  }, []);
 
   let rows = products.filter((p) => {
     if (chip === "beginner" && !p.beginner) return false;
@@ -211,10 +218,16 @@ function FinderInner() {
           </div>
           <div className="g-3">
             {packs.map((k) => (
-              <div key={k.id} style={{ background: "#3a251a", border: "1px solid #6b4430", borderRadius: 14, padding: 26, display: "flex", flexDirection: "column", gap: 12 }}>
+              <div key={k.id} id={k.slug} style={{ background: "#3a251a", border: "1px solid #6b4430", borderRadius: 14, padding: 26, display: "flex", flexDirection: "column", gap: 12, scrollMarginTop: 16 }}>
                 <span className="badge badge-dark" style={{ alignSelf: "flex-start" }}>{k.tag}</span>
                 <h3>{k.name}</h3>
-                <p style={{ color: "#E8DCC6", flex: 1 }}>{k.body}</p>
+                {k.tagline && <p style={{ color: "#C8963E", fontWeight: 600 }}>{k.tagline}</p>}
+                <p style={{ color: "#E8DCC6", flex: k.contents ? undefined : 1 }}>{k.body}</p>
+                {k.contents && (
+                  <ul style={{ color: "#E8DCC6", flex: 1, margin: 0, paddingLeft: 20, fontSize: 15.5, display: "flex", flexDirection: "column", gap: 4 }}>
+                    {k.contents.map((c) => <li key={c}>{c}</li>)}
+                  </ul>
+                )}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
                   <span style={{ fontFamily: "var(--serif)", fontSize: 28 }}>{k.price} <span style={{ fontSize: 15, fontFamily: "var(--sans)" }}>DKK</span></span>
                   <button

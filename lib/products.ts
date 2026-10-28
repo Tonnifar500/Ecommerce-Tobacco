@@ -39,6 +39,8 @@ export type Pack = {
   tag: string;
   body: string;
   price: number;
+  tagline?: string;
+  contents?: string[];
 };
 
 export const STRENGTH_LABELS = ["", "Mild", "Mild–Medium", "Medium", "Medium–Full", "Full"];
@@ -128,6 +130,24 @@ export const packs: Pack[] = [
   { id: 101, slug: "first-draw-starter-trio", name: "First Draw Starter Trio", tag: "Mild · 3 cigars", body: "Three mild cigars (Aurora Robusto, Golden Hour Petit Corona, Volcán Connecticut), with a printed care guide card.", price: 229 },
   { id: 102, slug: "colombian-discovery-pack", name: "Colombian Discovery Pack", tag: "Colombian · 4 cigars", body: "Aurora Robusto, Andes Corona, Sierra Dorada Toro and Celebration Churchill: four ways to taste Colombia.", price: 349 },
   { id: 103, slug: "gift-celebration-box", name: "Gift Celebration Box", tag: "Gift · boxed", body: "Two cigars, a cutter and matches in a wooden box. Ready to give.", price: 399 },
+  // Appended last: the product page refers to packs[0] and packs[2] by position.
+  {
+    id: 104,
+    slug: "first-draw-starter-set",
+    name: "First Draw Starter Set",
+    tag: "Beginner · 3 cigars + kit",
+    tagline: "Everything you need for a calm first cigar, in one box.",
+    body: "Our three mildest beginner picks, plus the few simple tools you need to cut, light and enjoy them, and a card with the 6 steps from our guide.",
+    contents: [
+      "3 mild cigars: Golden Hour Petit Corona, Aurora Robusto and Volcán Connecticut",
+      "Guillotine cutter",
+      "Wooden matches",
+      "Ashtray",
+      "Travel case with a humidity pouch to keep the cigars fresh",
+      "Printed 6-step guide card",
+    ],
+    price: 449,
+  },
 ];
 
 export const FREE_DELIVERY_FROM = 500;
