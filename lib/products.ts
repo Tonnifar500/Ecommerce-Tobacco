@@ -149,7 +149,6 @@ export const packs: Pack[] = [
       "Printed 6-step guide card",
     ],
     price: 449,
-    image: { src: "/products/first-draw-starter-set.jpg", alt: "An open wooden box with a cigar case, a cutter, a lighter and an ashtray in a cream insert" },
   },
 ];
 
