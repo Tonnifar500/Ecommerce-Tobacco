@@ -39,6 +39,9 @@ export type Pack = {
   tag: string;
   body: string;
   price: number;
+  tagline?: string;
+  contents?: string[];
+  image?: { src: string; alt: string };
 };
 
 export const STRENGTH_LABELS = ["", "Mild", "Mild–Medium", "Medium", "Medium–Full", "Full"];
@@ -128,6 +131,26 @@ export const packs: Pack[] = [
   { id: 101, slug: "first-draw-starter-trio", name: "First Draw Starter Trio", tag: "Mild · 3 cigars", body: "Three mild cigars (Aurora Robusto, Golden Hour Petit Corona, Volcán Connecticut), with a printed care guide card.", price: 229 },
   { id: 102, slug: "colombian-discovery-pack", name: "Colombian Discovery Pack", tag: "Colombian · 4 cigars", body: "Aurora Robusto, Andes Corona, Sierra Dorada Toro and Celebration Churchill: four ways to taste Colombia.", price: 349 },
   { id: 103, slug: "gift-celebration-box", name: "Gift Celebration Box", tag: "Gift · boxed", body: "Two cigars, a cutter and matches in a wooden box. Ready to give.", price: 399 },
+  // Appended last: the product page refers to packs[0] and packs[2] by position.
+  {
+    id: 104,
+    slug: "first-draw-starter-set",
+    name: "First Draw Starter Set",
+    tag: "Beginner · 3 cigars + kit",
+    tagline: "Everything you need for a calm first cigar, in one box.",
+    body: "Our three mildest beginner picks, plus the few simple tools you need to cut, light and enjoy them, and a card with the 6 steps from our guide.",
+    contents: [
+      "3 mild cigars: Golden Hour Petit Corona, Aurora Robusto and Volcán Connecticut",
+      "Guillotine cutter",
+      "Soft-flame lighter",
+      "Wooden matches",
+      "Ashtray",
+      "Travel case with a humidity pouch to keep the cigars fresh",
+      "Printed 6-step guide card",
+    ],
+    price: 449,
+    image: { src: "/products/first-draw-starter-set.jpg", alt: "An open wooden box with a cigar case, a cutter, a lighter and an ashtray in a cream insert" },
+  },
 ];
 
 export const FREE_DELIVERY_FROM = 500;
@@ -146,7 +169,7 @@ export function getItem(id: number): CatalogueItem | undefined {
   const p = getProduct(id);
   if (p) return { id, name: p.name, brand: p.brand, price: p.price, href: `/product/${p.slug}`, bg: p.image ? photoBg(p.image.src) : STRENGTH_BG[p.strength] };
   const k = packs.find((x) => x.id === id);
-  if (k) return { id, name: k.name, brand: "First Draw", price: k.price, href: "/shop#packs", bg: STRENGTH_BG[1] };
+  if (k) return { id, name: k.name, brand: "First Draw", price: k.price, href: "/shop#packs", bg: k.image ? photoBg(k.image.src) : STRENGTH_BG[1] };
   return undefined;
 }
 
