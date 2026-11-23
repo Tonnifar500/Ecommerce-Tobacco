@@ -66,6 +66,11 @@ details>div{padding:0 0 18px;color:#3d2a20}
 .term:hover .pop,.term:focus .pop{display:block}
 .term-wrap{position:relative;display:inline}
 .term-wrap.open>.pop{display:block}
+.term-wrap.right>.pop{left:auto;right:0}
+.brand-mark{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:3px 12px 3px 3px;border:1.5px solid var(--brand);border-radius:999px;background:#FBF7EF;color:var(--brand);font:700 12.5px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.brand-mark .mono{display:inline-flex;align-items:center;justify-content:center;flex:none;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#F6EFE3;font:600 12px var(--serif);letter-spacing:0}
+.brand-mark.lg{gap:10px;padding-right:16px;font-size:14px}
+.brand-mark.lg .mono{width:34px;height:34px;font-size:15px}
 .navlink{white-space:nowrap;display:inline-flex;align-items:center;min-height:44px;padding:0 4px;color:#2A1A12;text-decoration:none;font-weight:600;font-size:16px;border-bottom:2px solid transparent}
 .navlink:hover{border-bottom-color:#C8963E;color:#2A1A12}
 .navlink.cur{border-bottom-color:#A63A24}
@@ -84,7 +89,7 @@ input[type=range]{width:100%;accent-color:#A63A24}
 .fsb{display:flex;flex-direction:column;gap:6px;flex:0 0 270px;width:100%;max-width:270px}
 @media (max-width:860px){.fsb{display:none;max-width:100%;flex-basis:100%}.fsb.open{display:flex}}
 .info-i{border:1.5px solid #8A5A3B;border-radius:50%;width:22px;height:22px;font-size:12px;line-height:19px;text-align:center;font-family:var(--serif);font-style:italic;flex:none}
-.info-i .pop{left:auto;right:0}
+
 
 /* Product page */
 .facts td{padding:11px 8px;border-bottom:1px solid #E4D7C2;vertical-align:top}

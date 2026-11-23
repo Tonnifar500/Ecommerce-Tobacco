@@ -82,6 +82,18 @@ export const STRENGTH_BG = [
 
 export const photoBg = (src: string) => `center / cover no-repeat url(${src})`;
 
+// Text-only brand marks (initials + colour) so customers can recognise a brand without product photos.
+// Brands are fictional; colours are checked for AA contrast on the cream background and with cream text on them.
+export const BRANDS: Record<string, { mark: string; color: string }> = {
+  "Casa Aurelia": { mark: "CA", color: "#8A5A3B" },
+  "Finca Montaña": { mark: "FM", color: "#2f5d2a" },
+  "Luna Vieja": { mark: "LV", color: "#34446a" },
+  "Tabaquera Santiago": { mark: "TS", color: "#A63A24" },
+  "Isla Ceniza": { mark: "IC", color: "#2A1A12" },
+  "Valle Brisa": { mark: "VB", color: "#3f5f6b" },
+  "Rancho Sol": { mark: "RS", color: "#7a5418" },
+};
+
 export const ORIGIN_STORIES: Record<string, string> = {
   "Casa Aurelia":
     "Casa Aurelia is a small family-run farm in Colombia’s coffee highlands, where leaves are dried slowly in shaded barns and aged for over a year before rolling.",

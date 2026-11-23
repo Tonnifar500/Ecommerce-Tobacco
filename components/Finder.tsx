@@ -4,21 +4,16 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
-import { FLAVOUR_LABELS, OCCASION_LABELS, packs, photoBg, products, type Country, type Flavour, type Occasion, type Vitola } from "@/lib/products";
+import { STRENGTH_PLAIN, VITOLAS, explainVitola } from "@/lib/glossary";
+import { FLAVOUR_LABELS, OCCASION_LABELS, STRENGTH_LABELS, packs, photoBg, products, type Country, type Flavour, type Occasion, type Product, type Vitola } from "@/lib/products";
 import { QUIZ_LENGTH } from "@/lib/quiz";
 import ProductCard from "./ProductCard";
+import Term from "./Term";
 
 type Chip = "all" | "beginner" | "colombia" | "gifts" | "mild";
 const CHIPS: [Chip, string][] = [["all", "All cigars"], ["beginner", "Beginner picks"], ["colombia", "Colombian cigars"], ["gifts", "Gifts"], ["mild", "Mild & smooth"]];
 const MAX = 170;
 
-const STRENGTHS: [number, string, string][] = [
-  [1, "Mild", "Light and creamy. The gentlest start."],
-  [2, "Mild–Medium", "A little more flavour, still smooth."],
-  [3, "Medium", "Noticeable body, cocoa or toasted nut notes."],
-  [4, "Medium–Full", "Bold and peppery. For when you know your taste."],
-  [5, "Full", "Very strong and intense. Best saved for later."],
-];
 const FLAVOUR_HINTS: Record<Flavour, string> = {
   sweet: "Honey, vanilla and butter. Smooth and friendly.",
   woody: "Cedar, toast and nuts. Warm and familiar.",
@@ -41,29 +36,26 @@ const COUNTRIES: [Country, string][] = [
   ["Ecuador", "Known for silky, light wrapper leaves."],
   ["Mexico", "Sweet spice and earth."],
 ];
-const SIZES: [Vitola, string][] = [
-  ["Petit corona", "Small and quick, about 30 minutes."],
-  ["Corona", "Slim and classic, about 45 minutes."],
-  ["Robusto", "Short and thick, about 45–60 minutes."],
-  ["Toro", "Longer and thicker, 70–90 minutes."],
-  ["Churchill", "Long and elegant, 90 minutes or more."],
-];
 
 const flip = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
 
-function Group<T extends string | number>({ title, opts, sel, onToggle }: { title: string; opts: [T, string, string][]; sel: T[]; onToggle: (v: T) => void }) {
+type Opt<T> = { v: T; label: string; sub?: string; hint: string; count: number };
+
+// One filter group. Each option shows how many cigars it would give with the other filters already chosen,
+// and an "i" with a plain-language explanation (hover, focus or tap).
+function Group<T extends string | number>({ title, intro, opts, sel, onToggle }: { title: string; intro: string; opts: Opt<T>[]; sel: T[]; onToggle: (v: T) => void }) {
   return (
     <fieldset style={{ border: 0, borderTop: "1px solid #E4D7C2", padding: "12px 0 6px", margin: 0 }}>
       <legend style={{ fontFamily: "var(--serif)", fontWeight: 600, fontSize: 18, padding: "0 0 4px", float: "left", width: "100%" }}>{title}</legend>
-      <div style={{ clear: "both", display: "flex", flexDirection: "column" }}>
-        {opts.map(([v, label, hint]) => (
-          <div key={String(v)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+      <p style={{ clear: "both", fontSize: 14, color: "#5a4435", marginBottom: 4 }}>{intro}</p>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {opts.map(({ v, label, sub, hint, count }) => (
+          <div key={String(v)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, opacity: count === 0 && !sel.includes(v) ? 0.55 : 1 }}>
             <label className="fopt">
-              <input type="checkbox" checked={sel.includes(v)} onChange={() => onToggle(v)} /> {label}
+              <input type="checkbox" checked={sel.includes(v)} onChange={() => onToggle(v)} />
+              <span>{label}{sub && <span style={{ fontSize: 14, color: "#5a4435" }}> · {sub}</span>} <span style={{ fontSize: 14, color: "#5a4435" }}>({count})</span></span>
             </label>
-            <button type="button" className="term info-i" aria-label={`About ${label}`}>
-              i<span className="pop" role="tooltip">{hint}</span>
-            </button>
+            <Term tip={hint} label={`What does ${label} mean?`} className="term info-i" align="right">i</Term>
           </div>
         ))}
       </div>
@@ -98,20 +90,29 @@ function FinderInner() {
     if (id) document.getElementById(id)?.scrollIntoView();
   }, []);
 
-  let rows = products.filter((p) => {
+  // Ticks within a group widen the list (any of them); different groups narrow it (all of them).
+  const base = (p: Product) => {
     if (chip === "beginner" && !p.beginner) return false;
     if (chip === "colombia" && p.country !== "Colombia") return false;
     if (chip === "gifts" && !p.occasions.includes("gift")) return false;
     if (chip === "mild" && p.strength > 2) return false;
     if (beg && !p.beginner) return false;
-    if (str.length && !str.includes(p.strength)) return false;
-    if (flav.length && !flav.some((f) => p.flavours.includes(f))) return false;
-    if (occ.length && !occ.some((o) => p.occasions.includes(o))) return false;
-    if (country.length && !country.includes(p.country)) return false;
-    if (size.length && !size.includes(p.vitola)) return false;
     if (q && !`${p.name} ${p.brand} ${p.country} ${p.notes.join(" ")} ${p.vitola}`.toLowerCase().includes(q)) return false;
     return p.price <= max;
-  });
+  };
+  const groups = {
+    str: (p: Product) => !str.length || str.includes(p.strength),
+    flav: (p: Product) => !flav.length || flav.some((f) => p.flavours.includes(f)),
+    occ: (p: Product) => !occ.length || occ.some((o) => p.occasions.includes(o)),
+    country: (p: Product) => !country.length || country.includes(p.country),
+    size: (p: Product) => !size.length || size.includes(p.vitola),
+  };
+  type G = keyof typeof groups;
+  const matches = (p: Product, skip?: G) => base(p) && (Object.keys(groups) as G[]).every((g) => g === skip || groups[g](p));
+  // How many cigars an option would show, given everything chosen outside its own group.
+  const count = (g: G, test: (p: Product) => boolean) => products.filter((p) => matches(p, g) && test(p)).length;
+
+  let rows = products.filter((p) => matches(p));
   const sorts: Record<string, (a: (typeof rows)[0], b: (typeof rows)[0]) => number> = {
     rec: (a, b) => Number(b.beginner) - Number(a.beginner) || a.strength - b.strength || b.rating - a.rating,
     priceUp: (a, b) => a.price - b.price,
@@ -121,7 +122,17 @@ function FinderInner() {
   };
   rows = [...rows].sort(sorts[sort]);
 
-  const active = str.length + flav.length + occ.length + country.length + size.length + (beg ? 1 : 0) + (max < MAX ? 1 : 0);
+  const chosen: { label: string; remove: () => void }[] = [
+    ...(chip !== "all" ? [{ label: CHIPS.find(([k]) => k === chip)![1], remove: () => setChip("all") }] : []),
+    ...(beg ? [{ label: "Beginner-friendly only", remove: () => setBeg(false) }] : []),
+    ...str.map((v) => ({ label: STRENGTH_LABELS[v], remove: () => setStr(flip(str, v)) })),
+    ...flav.map((v) => ({ label: FLAVOUR_LABELS[v], remove: () => setFlav(flip(flav, v)) })),
+    ...occ.map((v) => ({ label: OCCASION_LABELS[v], remove: () => setOcc(flip(occ, v)) })),
+    ...country.map((v) => ({ label: v, remove: () => setCountry(flip(country, v)) })),
+    ...size.map((v) => ({ label: v, remove: () => setSize(flip(size, v)) })),
+    ...(max < MAX ? [{ label: `Up to ${max} DKK`, remove: () => setMax(MAX) }] : []),
+  ];
+  const active = chosen.length;
   const clearAll = () => { setChip("all"); setStr([]); setFlav([]); setOcc([]); setCountry([]); setSize([]); setMax(MAX); setBeg(false); };
 
   return (
@@ -130,7 +141,7 @@ function FinderInner() {
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <span className="eyebrow">Shop cigars</span>
           <h1 style={{ fontSize: "clamp(34px,4.4vw,52px)" }}>Browse all cigars</h1>
-          <p style={{ fontSize: 19, maxWidth: 640, color: "#3d2a20" }}>Every filter has a plain-English hint. Look for the small “i”.</p>
+          <p style={{ fontSize: 19, maxWidth: 640, color: "#3d2a20" }}>Every filter has a plain-English explanation. Hover or tap the small “i”.</p>
           <p style={{ fontSize: 15, color: "#5a4435" }}>Why are there no photos of the cigars? <Link href="/help#pictures">Read why</Link>.</p>
           {q && <p style={{ fontWeight: 600 }}>Search results for “{sp.get("q")}” · <Link href="/shop">clear search</Link></p>}
         </div>
@@ -163,14 +174,45 @@ function FinderInner() {
               <h2 style={{ fontSize: 24 }}>Filters</h2>
               <button type="button" className="chip" onClick={clearAll} style={{ minHeight: 36, padding: "0 12px", fontSize: 14 }}>Clear all</button>
             </div>
+            <p style={{ fontSize: 14, color: "#5a4435", marginBottom: 6 }}>Tick as many as you like. More ticks in one group show more cigars; ticks in different groups narrow the list. The number shows how many cigars you’ll see.</p>
             <label className="fopt" style={{ padding: "10px 12px", background: "#FBF3E0", border: "1px solid #C8963E", borderRadius: 10, fontWeight: 600 }}>
               <input type="checkbox" checked={beg} onChange={() => setBeg(!beg)} /> Beginner-friendly only
             </label>
-            <Group title="Strength" opts={STRENGTHS} sel={str} onToggle={(v) => setStr(flip(str, v))} />
-            <Group title="Flavour" opts={(Object.keys(FLAVOUR_LABELS) as Flavour[]).map((k) => [k, FLAVOUR_LABELS[k], FLAVOUR_HINTS[k]])} sel={flav} onToggle={(v) => setFlav(flip(flav, v))} />
-            <Group title="Occasion" opts={(Object.keys(OCCASION_LABELS) as Occasion[]).map((k) => [k, OCCASION_LABELS[k], OCC_HINTS[k]])} sel={occ} onToggle={(v) => setOcc(flip(occ, v))} />
-            <Group title="Country of origin" opts={COUNTRIES.map(([k, h]) => [k, k, h])} sel={country} onToggle={(v) => setCountry(flip(country, v))} />
-            <Group title="Size" opts={SIZES.map(([k, h]) => [k, k, h])} sel={size} onToggle={(v) => setSize(flip(size, v))} />
+            <Group
+              title="Strength"
+              intro="How strong it tastes. For a first cigar, start with Mild or Mild–Medium."
+              opts={[1, 2, 3, 4, 5].map((v) => ({ v, label: STRENGTH_LABELS[v], hint: STRENGTH_PLAIN[v], count: count("str", (p) => p.strength === v) }))}
+              sel={str}
+              onToggle={(v) => setStr(flip(str, v))}
+            />
+            <Group
+              title="Flavour"
+              intro="The taste you’ll notice most."
+              opts={(Object.keys(FLAVOUR_LABELS) as Flavour[]).map((v) => ({ v, label: FLAVOUR_LABELS[v], hint: FLAVOUR_HINTS[v], count: count("flav", (p) => p.flavours.includes(v)) }))}
+              sel={flav}
+              onToggle={(v) => setFlav(flip(flav, v))}
+            />
+            <Group
+              title="Occasion"
+              intro="What the cigar is for."
+              opts={(Object.keys(OCCASION_LABELS) as Occasion[]).map((v) => ({ v, label: OCCASION_LABELS[v], hint: OCC_HINTS[v], count: count("occ", (p) => p.occasions.includes(v)) }))}
+              sel={occ}
+              onToggle={(v) => setOcc(flip(occ, v))}
+            />
+            <Group
+              title="Where it’s from"
+              intro="Each country has its own typical style."
+              opts={COUNTRIES.map(([v, hint]) => ({ v, label: v, hint, count: count("country", (p) => p.country === v) }))}
+              sel={country}
+              onToggle={(v) => setCountry(flip(country, v))}
+            />
+            <Group
+              title="Size and smoking time"
+              intro="Bigger cigars take longer to smoke. Times are a rough guide."
+              opts={(Object.keys(VITOLAS) as Vitola[]).map((v) => ({ v, label: v, sub: VITOLAS[v].time.replace(" minutes", " min"), hint: explainVitola(v), count: count("size", (p) => p.vitola === v) }))}
+              sel={size}
+              onToggle={(v) => setSize(flip(size, v))}
+            />
             <div style={{ borderTop: "1px solid #E4D7C2", padding: "12px 0" }}>
               <label className="lbl" htmlFor="price" style={{ fontFamily: "var(--serif)", fontSize: 18 }}>Price: up to {max} DKK</label>
               <input id="price" type="range" min={50} max={MAX} step={5} value={max} onChange={(e) => setMax(Number(e.target.value))} />
@@ -192,6 +234,17 @@ function FinderInner() {
                 </select>
               </div>
             </div>
+            {chosen.length > 0 && (
+              <div role="group" aria-label="Your filters" style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+                <span style={{ fontWeight: 600, fontSize: 15 }}>Your filters:</span>
+                {chosen.map((f) => (
+                  <button key={f.label} type="button" className="chip" onClick={f.remove} aria-label={`Remove filter: ${f.label}`} style={{ minHeight: 36, padding: "0 12px", fontSize: 14 }}>
+                    {f.label}<span aria-hidden="true" style={{ marginLeft: 6 }}>×</span>
+                  </button>
+                ))}
+                <button type="button" className="chip" onClick={clearAll} style={{ minHeight: 36, padding: "0 12px", fontSize: 14 }}>Clear all</button>
+              </div>
+            )}
             {rows.length > 0 ? (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(230px,1fr))", gap: 22 }}>
                 {rows.map((p) => <ProductCard key={p.id} p={p} />)}
