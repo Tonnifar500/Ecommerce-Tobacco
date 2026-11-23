@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { explainStrength, explainVitola, explainWrapper } from "@/lib/glossary";
 import { photoBg, STRENGTH_BG, STRENGTH_LABELS, type Product } from "@/lib/products";
+import BrandMark from "./BrandMark";
 import Flag from "./Flag";
 import StrengthMeter from "./StrengthMeter";
 import Term from "./Term";
@@ -26,9 +27,9 @@ export default function ProductCard({ p }: { p: Product }) {
         </div>
       </Link>
       <div style={{ padding: "18px 18px 20px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-        <div>
-          <div className="eyebrow" style={{ fontSize: 12 }}>{p.brand}</div>
-          <h3 style={{ fontSize: 21, marginTop: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 8 }}>
+          <BrandMark brand={p.brand} />
+          <h3 style={{ fontSize: 21 }}>
             <Link href={`/product/${p.slug}`} style={{ color: "#2A1A12", textDecoration: "none" }}>{p.name}</Link>
           </h3>
         </div>

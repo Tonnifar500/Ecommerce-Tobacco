@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import BrandMark from "@/components/BrandMark";
 import BuyBox from "@/components/BuyBox";
 import Flag from "@/components/Flag";
 import Gallery from "@/components/Gallery";
@@ -68,7 +69,10 @@ async function ProductContent({ params }: { params: PageProps<"/product/[slug]">
 
           <div style={{ flex: "1 1 440px", minWidth: 0, display: "flex", flexDirection: "column", gap: 18 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <span className="eyebrow">{p.brand}</span>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 14px" }}>
+                <BrandMark brand={p.brand} size="lg" />
+                <Link href={`/shop?q=${encodeURIComponent(p.brand)}`} style={{ fontSize: 15 }}>All {p.brand} cigars</Link>
+              </div>
               <h1 style={{ fontSize: "clamp(34px,4vw,50px)" }}>{p.name}</h1>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 16px", fontSize: 16 }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><Flag country={p.country} w={24} h={16} />{p.country}</span>

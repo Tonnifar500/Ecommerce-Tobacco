@@ -4,7 +4,8 @@ import { useEffect, useId, useRef, useState } from "react";
 
 // A dotted term with a short explanation. Opens on mouse hover, on keyboard focus and on tap/click
 // (tap again, tap elsewhere or press Escape to close). The explanation is linked with aria-describedby.
-export default function Term({ children, tip }: { children: React.ReactNode; tip: string }) {
+// `label` names a trigger that has no words of its own (the filters' "i"); `align="right"` opens the tip leftwards.
+export default function Term({ children, tip, label, className = "term", align }: { children: React.ReactNode; tip: string; label?: string; className?: string; align?: "right" }) {
   const id = useId();
   const ref = useRef<HTMLSpanElement>(null);
   const [hover, setHover] = useState(false);
@@ -22,13 +23,14 @@ export default function Term({ children, tip }: { children: React.ReactNode; tip
   return (
     <span
       ref={ref}
-      className={`term-wrap ${open ? "open" : ""}`}
+      className={`term-wrap ${align === "right" ? "right" : ""} ${open ? "open" : ""}`}
       onPointerEnter={(e) => e.pointerType === "mouse" && setHover(true)}
       onPointerLeave={(e) => e.pointerType === "mouse" && setHover(false)}
     >
       <button
         type="button"
-        className="term"
+        className={className}
+        aria-label={label}
         aria-describedby={id}
         onClick={() => setPinned(!pinned)}
         onFocus={(e) => setFocus(e.currentTarget.matches(":focus-visible"))}
